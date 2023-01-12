@@ -1,10 +1,12 @@
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
 # Create your views here.
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from products.models import Basket
+from store.settings import LOGIN_URL
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 
 def login(request):
@@ -36,6 +38,7 @@ def registration(request):
     return render(request=request, template_name='users/registration.html', context=context)
 
 
+@login_required(login_url=LOGIN_URL)
 def profile(request):
     if request.method == "POST":
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
