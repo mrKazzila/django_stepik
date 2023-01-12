@@ -18,3 +18,5 @@ def products(request):
         'category': ProductCategory.objects.all(),
     }
     return render(request=request, template_name='products/products.html', context=context)
+
+
