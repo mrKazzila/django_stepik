@@ -49,7 +49,7 @@ def profile(request):
     context = {
         'title': 'Store - Профиль',
         "form": form,
-        "basket": Basket.objects.all(),
+        "baskets": Basket.objects.filter(user=request.user),
     }
     return render(request=request, template_name='users/profile.html', context=context)
 
