@@ -13,11 +13,11 @@ def index(request):
     return render(request=request, template_name='products/index.html', context=context)
 
 
-def products(request):
+def products(request, category_id=None):
     context = {
-        'title': 'Store - Каталог',  # Placeholder
-        'products': Product.objects.all(),
-        'category': ProductCategory.objects.all(),
+        'title': 'Store - Каталог',
+        'categories': ProductCategory.objects.all(),
+        'products': Product.objects.filter(category__id=category_id) if category_id else Product.objects.all()
     }
     return render(request=request, template_name='products/products.html', context=context)
 
