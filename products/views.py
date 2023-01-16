@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect
-
+from common.views import TitleMixin
 from products.models import Basket, Product, ProductCategory
 # Create your views here.
 from store.settings import LOGIN_URL
@@ -10,17 +10,17 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 
 
-class IndexView(TemplateView):
+class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
     title = 'Store'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['title'] = self.title
+        # context['title'] = self.title
         return context
 
 
-class ProductsListView(ListView):
+class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
@@ -29,7 +29,6 @@ class ProductsListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
-        context['title'] = self.title
         context['categories'] = ProductCategory.objects.all()
         return context
 
@@ -54,6 +53,8 @@ class ProductsListView(ListView):
 #             basket.save()
 #
 #         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
 @login_required(login_url=LOGIN_URL)
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
