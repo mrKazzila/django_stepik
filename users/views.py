@@ -1,63 +1,52 @@
-from django.contrib import auth, messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponseRedirect
 # Create your views here.
-from django.urls import reverse
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, UpdateView
 
-from products.models import Basket
-from store.settings import LOGIN_URL
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-
-
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('users:profile'))
-    else:
-        form = UserLoginForm()
-    context = {"form": form}
-    return render(request=request, template_name='users/login.html', context=context)
+from common.views import TitleMixin
+from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from users.models import EmailVerification, User
 
 
-def registration(request):
-    if request.method == "POST":
-        form = UserRegistrationForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Поздравляем! Вы успешно зарегистрировались!")
-            return HttpResponseRedirect(reverse('users:login'))
-    else:
-        form = UserRegistrationForm()
-    context = {'form': form}
-    return render(request=request, template_name='users/registration.html', context=context)
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
 
 
-@login_required(login_url=LOGIN_URL)
-def profile(request):
-    if request.method == "POST":
-        form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('users:profile'))
-        else:
-            print(form.errors)
-    else:
-        form = UserProfileForm(instance=request.user)
+class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
+    model = User
+    form_class = UserRegistrationForm
+    template_name = 'users/registration.html'
+    title = 'Registration'
+    success_message = 'Вы успешно зарегистрированы!'
 
-    context = {
-        'title': 'Store - Профиль',
-        "form": form,
-        "baskets": Basket.objects.filter(user=request.user),
-    }
-    return render(request=request, template_name='users/profile.html', context=context)
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
 
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(reverse('index'))
+class UserProfileUpdateView(TitleMixin, UpdateView):
+    model = User
+    template_name = 'users/profile.html'
+    form_class = UserProfileForm
+    title = 'Store - Профиль'
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
+
+
+class EmailVerificationView(TitleMixin, TemplateView):
+    template_name = 'users/email_verification.html'
+    title = 'Store - Подтверждение электронной почты'
+
+    def get(self, request, *args, **kwargs):
+        code = kwargs.get('code')
+        user = User.objects.get(email=kwargs['email'])
+        email_verifications = EmailVerification.objects.filter(user=user, code=code,)
+        if email_verifications.exists() and not email_verifications.first().is_expired():
+            user.is_verified_email = True
+            user.save()
+            return super().get(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse('index'))

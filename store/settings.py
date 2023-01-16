@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-22gj=z*d*4tq(nw63_3tqo32(o#^9t-p2lgnux)243&s&b!!y2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'common',
     'products',
     'users',
 ]
@@ -65,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.baskets',
+
             ],
         },
     },
@@ -136,3 +140,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # users
 AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+# Sending emails
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Отправка соощения в консоль
+
+# Настройки для отправки письма на яндекс почту
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_SSL = True

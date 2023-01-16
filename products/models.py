@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import User
 
 
@@ -9,6 +10,7 @@ class ProductCategory(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+
     def __str__(self):
         return f'{self.name}'
 
