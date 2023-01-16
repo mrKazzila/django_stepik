@@ -1,7 +1,6 @@
-from django.contrib import auth
-from django.shortcuts import render, HttpResponseRedirect
 # Create your views here.
-from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
 from products.models import Basket
@@ -9,20 +8,9 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from users.models import User
 
 
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-    else:
-        form = UserLoginForm()
-    context = {"form": form}
-    return render(request=request, template_name='users/login.html', context=context)
+class UserLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
 
 
 class UserRegistrationCreateView(CreateView):
@@ -52,8 +40,3 @@ class UserProfileUpdateView(UpdateView):
         context['title'] = self.title
         context["baskets"] = Basket.objects.filter(user=self.object)
         return context
-
-
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(reverse('index'))
