@@ -19,9 +19,12 @@ class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
-    success_url = reverse_lazy('users:profile')  # куда пользователя перенаправят
+    # success_url = reverse_lazy('users:profile')  # куда пользователя перенаправят
     title = 'Registration'
     success_message = 'Вы успешно зарегистрированы!'
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
 
 
 class UserProfileUpdateView(TitleMixin, UpdateView):
