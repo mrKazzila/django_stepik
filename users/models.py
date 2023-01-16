@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 from django.core.mail import send_mail
-
+from django.urls import reverse
+from django.conf import settings
+from datetime import timedelta
+from django.utils.timezone import now
 
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_images', null=True, blank=True)
@@ -17,14 +20,29 @@ class EmailVerification(models.Model):
     expiration = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.__class__.__name__} for {self.user.name}'
+        return f'{self.__class__.__name__} for {self.user}'
 
     def send_verification_email(self):
-        return send_mail(
-            'Подтверждение регистрации',
-            f'Благодарим вас за регистрацию!\n Для завершения процедуры регистрации,'
-            f'пожалуйста подтвердите ваш email в течении 48 часов.',
-            'from@example.com',
-            [self.user.email],
+        link = reverse(
+            'users:email_verification',
+            kwargs={
+                'email': self.user.email,
+                'code': self.code
+            }
+        )
+        verification_link = f'{settings.DOMAIN_NAME}{link}'
+        subject = 'Подтверждение регистрации'
+        massage = (f'{self.user.username}, благодарим вас за регистрацию!\n'
+                   f'Для завершения процедуры регистрации,'
+                   f'пожалуйста, подтвердите ваш email по ссылке {verification_link} в течении 48 часов.')
+
+        send_mail(
+            subject=subject,
+            message=massage,
+            from_email='from@example.com',
+            recipient_list=[self.user.email],
             fail_silently=False,
         )
+
+    def is_expired(self):
+        return True if now() >= self.expiration else False
