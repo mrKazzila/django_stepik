@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 DOMAIN_NAME = 'http://127.0.0.1:8000'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    # 'django.contrib.sites.models.Site',
 
     # The following oauth apps are required:
     'allauth',
@@ -184,7 +184,8 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-SITE_ID = 1
+
+SITE_ID = 2
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
