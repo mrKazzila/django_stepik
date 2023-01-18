@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'django.contrib.sites.models.Site',
+    'django.contrib.humanize',
 
     # The following oauth apps are required:
     'allauth',
@@ -47,12 +47,15 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
 
+    # Debug apps
     'debug_toolbar',
 
     # Project apps
     'common',
     'products',
     'users',
+    'orders',
+
 ]
 
 MIDDLEWARE = [
