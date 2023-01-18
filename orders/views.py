@@ -6,7 +6,8 @@ from orders.forms import OrderForm
 from django.urls import reverse_lazy, reverse
 from common.views import TitleMixin
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import stripe
 from http import HTTPStatus
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -37,6 +38,9 @@ class OrderCreateView(TitleMixin, CreateView):
                     'quantity': 1,
                 },
             ],
+            metadata={
+                'order_id': self.object,
+            },
             mode='payment',
             success_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_success")}',
             cancel_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_canceled")}',
@@ -48,6 +52,40 @@ class OrderCreateView(TitleMixin, CreateView):
         return super().form_valid(form)
 
 
+@csrf_exempt
+def stripe_webhook_view(request):
+  payload = request.body
+  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+  event = None
+
+  try:
+    event = stripe.Webhook.construct_event(
+      payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+    )
+  except ValueError as e:
+    # Invalid payload
+    return HttpResponse(status=400)
+  except stripe.error.SignatureVerificationError as e:
+    # Invalid signature
+    return HttpResponse(status=400)
+
+  # Handle the checkout.session.completed event
+  if event['type'] == 'checkout.session.completed':
+    # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
+    session = stripe.checkout.Session.retrieve(
+      event['data']['object']['id'],
+      expand=['line_items'],
+    )
+
+    line_items = session.line_items
+    # Fulfill the purchase...
+    fulfill_order(line_items)
+
+  # Passed signature verification
+  return HttpResponse(status=200)
 
 
+def fulfill_order(line_items):
+  # TODO: fill me in
+  print("Fulfilling order")
 
