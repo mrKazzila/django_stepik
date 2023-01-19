@@ -45,8 +45,10 @@ class EmailVerificationView(TitleMixin, TemplateView):
         code = kwargs.get('code')
         user = User.objects.get(email=kwargs['email'])
         email_verifications = EmailVerification.objects.filter(user=user, code=code,)
+
         if email_verifications.exists() and not email_verifications.first().is_expired():
             user.is_verified_email = True
             user.save()
             return super().get(request, *args, **kwargs)
+
         return HttpResponseRedirect(reverse('index'))

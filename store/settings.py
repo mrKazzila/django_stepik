@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    # 'django.contrib.sites.models.Site',
+    'django.contrib.humanize',
 
     # The following oauth apps are required:
     'allauth',
@@ -47,12 +47,15 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
 
+    # Debug apps
     'debug_toolbar',
 
     # Project apps
     'common',
     'products',
     'users',
+    'orders',
+
 ]
 
 MIDDLEWARE = [
@@ -217,3 +220,13 @@ SOCIALACCOUNT_PROVIDERS = {
 # celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+# stripe
+STRIPE_PUBLIC_KEY = ('pk_test_51MRhAEHnQJx16vwHEKYvpRp42HS7NpxvH20VxHqs4kYRhVwj'
+                     'WZO3AtbsUvtO1BgPsNfZe8V4i7edXlDWtYTcJmSF005eGPt459')
+
+STRIPE_SECRET_KEY = ('sk_test_51MRhAEHnQJx16vwH5etE07Y6P9Zg9NsQmuFVDc2VcQ5ySCD0'
+                     'P2qG59cLWQJnKEqUd1MqsBiXUcDoDVVl66XdE5fC0006isJniy')
+
+STRIPE_WEBHOOK_SECRET = 'whsec_062843bb12aaf0ae0856f8b7c641187b9c9751849d30a54ef01188857214ad6e'
