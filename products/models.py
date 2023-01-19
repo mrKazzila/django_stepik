@@ -35,25 +35,26 @@ class Product(models.Model):
     def __str__(self):
         return f'Продукт: {self.name} | Категория: {self.category.name}'
 
-    def create_stripe_model_price(self):
-        stripe_product = stripe.Product.create(name=self.name)
-        stripe_product_price = stripe.Price.create(
-            unit_amount=round(self.price * 100),
-            currency="rub",
-            # recurring={"interval": "month"},
-            product=stripe_product['id'],
-        )
-        return stripe_product_price
-
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
         if not self.stripe_product_price_id:
-            stripe_product_price_id = self.create_stripe_model_price()
-            self.stripe_product_price_id = stripe_product_price_id['id']
+            stripe_product_price = self.create_stripe_product_price()
+            self.stripe_product_price_id = stripe_product_price['id']
 
         super().save(force_insert=False, force_update=False, using=None,
                      update_fields=None)
+
+    def create_stripe_product_price(self):
+        stripe_product = stripe.Product.create(name=self.name)
+
+        stripe_product_price = stripe.Price.create(
+            product=stripe_product['id'],
+            unit_amount=round(self.price * 100),
+            currency="rub",
+        )
+
+        return stripe_product_price
 
 
 class BasketQuerySet(models.QuerySet):
@@ -64,13 +65,16 @@ class BasketQuerySet(models.QuerySet):
         return sum(basket.quantity for basket in self)
 
     def stripe_products(self):
-        return [
-            {
+        stripe_prod = []
+
+        for basket in self:
+            item = {
                 'price': basket.product.stripe_product_price_id,
                 'quantity': basket.quantity
             }
-            for basket in self
-        ]
+            stripe_prod.append(item)
+
+        return stripe_prod
 
 
 class Basket(models.Model):
@@ -87,3 +91,12 @@ class Basket(models.Model):
     @property
     def sum(self):
         return self.product.price * self.quantity
+
+    def do_json(self):
+        basket_item = {
+            'product_name': self.product.name,
+            'quantity': self.quantity,
+            'price': float(self.product.price),
+            'sum': float(self.sum),
+        }
+        return basket_item

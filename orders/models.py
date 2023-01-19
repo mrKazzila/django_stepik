@@ -3,7 +3,7 @@
 from django.db import models
 
 from users.models import User
-
+from products.models import Basket
 #
 # class OrderStatus(enum.Enum):
 #     CREATED = 0
@@ -35,4 +35,14 @@ class Order(models.Model):
     initiator = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.__class__.__name__} #{self.id}. {self.first_name} {self.last_name}'
+        return f'Order #{self.id}. {self.first_name} {self.last_name}'
+
+    def update_after_payment(self):
+        baskets = Basket.objects.filter(user=self.initiator)
+        self.status = self.PAID
+        self.basket_history = {
+            'purchased_items': [basket.do_json() for basket in baskets],
+            'total_sum': float(baskets.total_sum()),
+        }
+        baskets.delete()
+        self.save()

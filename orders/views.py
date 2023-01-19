@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
-
+from orders.models import Order
 from common.views import TitleMixin
 from orders.forms import OrderForm
 from products.models import Basket
@@ -34,16 +34,20 @@ class OrderCreateView(TitleMixin, CreateView):
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
         baskets = Basket.objects.filter(user=self.request.user)
+        line_items = baskets.stripe_products()
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                line_items=line_items,
+                metadata={
+                    'order_id': self.object.id,
+                },
+                mode='payment',
+                success_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_success")}',
+                cancel_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_canceled")}',
+            )
+        except Exception as e:
+            return str(e)
 
-        checkout_session = stripe.checkout.Session.create(
-            line_items=baskets.stripe_products(),
-            metadata={
-                'order_id': self.object,
-            },
-            mode='payment',
-            success_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_success")}',
-            cancel_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_canceled")}',
-        )
         return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
     def form_valid(self, form):
@@ -54,6 +58,7 @@ class OrderCreateView(TitleMixin, CreateView):
 @csrf_exempt
 def stripe_webhook_view(request):
     payload = request.body
+
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
 
@@ -78,7 +83,7 @@ def stripe_webhook_view(request):
             expand=['line_items'],
         )
 
-        line_items = session.line_items
+        line_items = session
         # Fulfill the purchase...
         fulfill_order(line_items)
 
@@ -86,6 +91,8 @@ def stripe_webhook_view(request):
     return HttpResponse(status=200)
 
 
-def fulfill_order(line_items):
-    # TODO: fill me in
+def fulfill_order(session):
+    order_id = int(session.metadata.order_id)
+    order = Order.objects.get(id=order_id)
+    order.update_after_payment()
     print("Fulfilling order")
