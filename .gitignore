@@ -1,7 +1,3 @@
-/products/migrations/
-/products/fixtures/
 /db.sqlite3
-/users/migrations/
 /media/
-/orders/migrations/
 .env
