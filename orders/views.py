@@ -7,12 +7,15 @@ from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
-from orders.models import Order
+from django.views.generic.list import ListView
+
 from common.views import TitleMixin
 from orders.forms import OrderForm
+from orders.models import Order
 from products.models import Basket
-from django.views.generic.list import ListView
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -35,12 +38,11 @@ class OrderCreateView(TitleMixin, CreateView):
         super().post(request, *args, **kwargs)
         baskets = Basket.objects.filter(user=self.request.user)
         line_items = baskets.stripe_products()
+
         try:
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
-                metadata={
-                    'order_id': self.object.id,
-                },
+                metadata={'order_id': self.object.id},
                 mode='payment',
                 success_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_success")}',
                 cancel_url=f'{settings.DOMAIN_NAME}/{reverse("orders:order_canceled")}',
@@ -64,6 +66,17 @@ class OrderListView(TitleMixin, ListView):
     def get_queryset(self):
         queryset = super(OrderListView, self).get_queryset()
         return queryset.filter(initiator=self.request.user)
+
+
+class OrderDetailView(DetailView):
+    template_name = 'orders/order.html'
+    model = Order
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['title'] = f'Заказ №{self.object.id}'
+        return context
+
 
 @csrf_exempt
 def stripe_webhook_view(request):
