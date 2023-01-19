@@ -12,7 +12,7 @@ from orders.models import Order
 from common.views import TitleMixin
 from orders.forms import OrderForm
 from products.models import Basket
-
+from django.views.generic.list import ListView
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -54,6 +54,16 @@ class OrderCreateView(TitleMixin, CreateView):
         form.instance.initiator = self.request.user
         return super().form_valid(form)
 
+
+class OrderListView(TitleMixin, ListView):
+    template_name = 'orders/orders.html'
+    title = 'Store - заказы'
+    queryset = Order.objects.all()
+    ordering = ('-created',)
+
+    def get_queryset(self):
+        queryset = super(OrderListView, self).get_queryset()
+        return queryset.filter(initiator=self.request.user)
 
 @csrf_exempt
 def stripe_webhook_view(request):
