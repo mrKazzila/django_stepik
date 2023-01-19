@@ -210,7 +210,7 @@ if DEBUG:
         BASE_DIR / 'static',
     )
 else:
-    STATIC_ROOT = BASE_DIR / 'static'  # for prod
+    STATIC_ROOT = BASE_DIR / 'store' / 'static'  # for prod
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
