@@ -4,3 +4,4 @@
 /users/migrations/
 /media/
 /orders/migrations/
+.env
