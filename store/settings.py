@@ -10,10 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import environ
-import os
 import mimetypes
+import os
+from pathlib import Path
+
+import environ
 
 mimetypes.add_type("text/javascript", ".js", True)
 
