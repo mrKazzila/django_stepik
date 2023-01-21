@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import environ
 import os
+import mimetypes
 
+mimetypes.add_type("text/javascript", ".js", True)
 
 env = environ.Env(
     # set casting, default value
