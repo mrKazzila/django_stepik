@@ -25,6 +25,7 @@ class SuccessTemplateView(TitleMixin, TemplateView):
 
 
 class CanceledTemplateView(TitleMixin, TemplateView):
+    title = 'Store - заказ не принят!'
     template_name = 'orders/canceled.html'
 
 
