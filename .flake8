@@ -5,6 +5,7 @@ inline-quotes = '
 
 exclude =
     migrations
+
 ignore =
     E722,
     D100,
@@ -17,6 +18,3 @@ ignore =
     D400,
     I100,
     I201,
-
-
-
