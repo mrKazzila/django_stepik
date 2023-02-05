@@ -26,8 +26,8 @@ class EmailVerification(models.Model):
             'users:email_verification',
             kwargs={
                 'email': self.user.email,
-                'code': self.code
-            }
+                'code': self.code,
+            },
         )
         verification_link = f'{settings.DOMAIN_NAME}{link}'
         subject = 'Подтверждение регистрации'

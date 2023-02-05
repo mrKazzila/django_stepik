@@ -36,7 +36,7 @@ class ProductsListViewTestCase(TestCase):
         self.__common_tests(response=response)
         self.assertEqual(
             list(response.context_data['object_list']),
-            list(self.products[:3])
+            list(self.products[:3]),
         )
 
     def test_list_with_category(self):
@@ -47,5 +47,5 @@ class ProductsListViewTestCase(TestCase):
         self.__common_tests(response=response)
         self.assertEqual(
             list(response.context_data['object_list']),
-            list(self.products.filter(category_id=category.id))
+            list(self.products.filter(category_id=category.id)),
         )

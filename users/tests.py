@@ -44,7 +44,7 @@ class UserRegistrationViewTestCase(TestCase):
         self.assertTrue(email_verification.exists())
         self.assertEqual(
             email_verification.first().expiration.date(),
-            (now() + timedelta(hours=48)).date()
+            (now() + timedelta(hours=48)).date(),
         )
 
     def test_user_registration_post_error(self):

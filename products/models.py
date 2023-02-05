@@ -70,7 +70,7 @@ class BasketQuerySet(models.QuerySet):
         for basket in self:
             item = {
                 'price': basket.product.stripe_product_price_id,
-                'quantity': basket.quantity
+                'quantity': basket.quantity,
             }
             stripe_prod.append(item)
 
@@ -89,7 +89,7 @@ class Basket(models.Model):
         return f'Корзина для {self.user.username} | Продукт: {self.product.name}'
 
     @property
-    def sum(self):
+    def sum(self):  # noqa A003
         return self.product.price * self.quantity
 
     def do_json(self):
