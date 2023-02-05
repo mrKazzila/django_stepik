@@ -28,7 +28,7 @@ class ProductsListView(TitleMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        category_id = self.kwargs.get("category_id")
+        category_id = self.kwargs.get('category_id')
         return queryset.filter(category__id=category_id) if category_id is not None else queryset
 
 

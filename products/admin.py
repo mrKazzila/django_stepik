@@ -8,15 +8,15 @@ admin.site.register(ProductCategory)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'quantity', 'category',)
+    list_display = ('name', 'price', 'quantity', 'category')
     fields = (
         'name', 'description',
-        'category', ('price', 'quantity',),
+        'category', ('price', 'quantity'),
         'stripe_product_price_id', 'image',
     )
     readonly_fields = ('description',)
-    search_fields = ('name', 'quantity', 'category',)
-    ordering = ('price', 'quantity', 'category',)
+    search_fields = ('name', 'quantity', 'category')
+    ordering = ('price', 'quantity', 'category')
 
 
 class BasketAdmin(admin.TabularInline):
