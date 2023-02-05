@@ -51,7 +51,7 @@ class Product(models.Model):
         stripe_product_price = stripe.Price.create(
             product=stripe_product['id'],
             unit_amount=round(self.price * 100),
-            currency="rub",
+            currency='rub',
         )
 
         return stripe_product_price

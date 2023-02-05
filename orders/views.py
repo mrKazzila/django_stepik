@@ -45,8 +45,8 @@ class OrderCreateView(TitleMixin, CreateView):
                 line_items=line_items,
                 metadata={'order_id': self.object.id},
                 mode='payment',
-                success_url=f'{settings.DOMAIN_NAME}{reverse("orders:order_success")}',
-                cancel_url=f'{settings.DOMAIN_NAME}{reverse("orders:order_canceled")}',
+                success_url=f"{settings.DOMAIN_NAME}{reverse('orders:order_success')}",
+                cancel_url=f"{settings.DOMAIN_NAME}{reverse('orders:order_canceled')}",
             )
         except Exception as e:
             return str(e)
@@ -119,4 +119,4 @@ def fulfill_order(session):
     order_id = int(session.metadata.order_id)
     order = Order.objects.get(id=order_id)
     order.update_after_payment()
-    print("Fulfilling order")
+    print('Fulfilling order')

@@ -16,7 +16,7 @@ from pathlib import Path
 
 import environ
 
-mimetypes.add_type("text/javascript", ".js", True)
+mimetypes.add_type('text/javascript', '.js', True)
 
 env = environ.Env(
     # set casting, default value
@@ -106,7 +106,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'store.urls'

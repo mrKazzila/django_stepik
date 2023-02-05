@@ -9,49 +9,49 @@ from users.tasks import send_email_verification
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите имя пользователя"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите имя пользователя'},
         ),
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите пароль"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите пароль'},
         ),
     )
 
     class Meta:
         model = User
-        fields = ("username", "password")
+        fields = ('username', 'password')
 
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите имя"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите имя'},
         ),
     )
     last_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите фамилию"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите фамилию'},
         ),
     )
     username = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите имя пользователя"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите имя пользователя'},
         ),
     )
     email = forms.CharField(
         widget=forms.EmailInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите адрес эл. почты"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите адрес эл. почты'},
         ),
     )
     password1 = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите пароль"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Введите пароль'},
         ),
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Подтвердите пароль"},
+            attrs={'class': 'form-control py-4', 'placeholder': 'Подтвердите пароль'},
         ),
     )
 
@@ -68,27 +68,27 @@ class UserRegistrationForm(UserCreationForm):
 class UserProfileForm(UserChangeForm):
     first_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4"},
+            attrs={'class': 'form-control py-4'},
         ),
     )
     last_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4"},
+            attrs={'class': 'form-control py-4'},
         ),
     )
     username = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", 'readonly': True},
+            attrs={'class': 'form-control py-4', 'readonly': True},
         ),
     )
     email = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", 'readonly': True},
+            attrs={'class': 'form-control py-4', 'readonly': True},
         ),
     )
     image = forms.ImageField(
         widget=forms.FileInput(
-            attrs={"class": "custom-file-input"},
+            attrs={'class': 'custom-file-input'},
         ),
         required=False,
     )
