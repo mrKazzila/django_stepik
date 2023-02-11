@@ -34,9 +34,9 @@
 
 ## Features
 * Registration new user
- - Verification with e-mail
+  - Verification with e-mail
 * Authorisation
- - Also, authorisation with GitHub account
+  - Also, authorisation with GitHub account
 * Change profile settings
 * Add goods into cart
 * Fake buying
@@ -53,7 +53,7 @@
 
 ## How To Use
 To clone and run this project, you'll need:
-- [Git](https://git-scm.com),
+- [Git](https://git-scm.com)
 - [Python](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation)
 
