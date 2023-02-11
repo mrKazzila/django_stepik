@@ -28,7 +28,6 @@
   <a href="#features">Features</a> •
   <a href="#tech-stack">Tech stack</a> •
   <a href="#how-to-use">How To Use</a> •
-  <a href="#related">Related</a> •
   <a href="https://store-server-test.ru/">Website</a>
 </p>
 
