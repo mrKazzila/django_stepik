@@ -10,7 +10,8 @@
 </h1>
 
 <h4 align="center">
-    Store shop. The project for study Django.<br>
+    Store shop. The project for study Django
+    <br>
     <a href="https://stepik.org/course/125859/info" target="_blank">
       Stepik | Backend development on Django: from scratch to a specialist
     </a>
@@ -19,7 +20,7 @@
 <div align="center">
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
-[![Conventional Commits](https://img.shields.io/badge/stepik-course-green)](https://stepik.org/course/101042/info)
+[![Stepik](https://img.shields.io/badge/stepik-course-green)](https://stepik.org/course/101042/info)
 
 </div>
 <hr>
@@ -95,8 +96,10 @@ To clone and run this project, you'll need:
    ```
 
 
----
-
-> [Resume](https://kazzila.github.io/resume/) &nbsp;&middot;&nbsp;
-> GitHub [Kazzila](https://github.com/Kazzila) &nbsp;&middot;&nbsp;
-> LinkedIn [Ilya Kazakov](https://www.linkedin.com/in/i-kazakov/)
+<br>
+<br>
+<p align="center">
+  <a href="https://github.com/Kazzila">GitHub</a> •
+  <a href="https://kazzila.github.io/resume/">Resume</a> •
+  <a href="https://www.linkedin.com/in/i-kazakov/">LinkedIn</a>
+</p>
