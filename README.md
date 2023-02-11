@@ -93,3 +93,10 @@ To clone and run this project, you'll need:
    ```bash
    celery -A store worker --loglevel=INFO
    ```
+
+
+---
+
+> [Resume](https://kazzila.github.io/resume/) &nbsp;&middot;&nbsp;
+> GitHub [Kazzila](https://github.com/Kazzila) &nbsp;&middot;&nbsp;
+> LinkedIn [Ilya Kazakov](https://www.linkedin.com/in/i-kazakov/)
