@@ -4,8 +4,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
+from products.product_services import update_or_add_to_basket
 from products.models import Basket, Product, ProductCategory
-# Create your views here.
 from store.settings import LOGIN_URL
 
 
@@ -35,14 +35,14 @@ class ProductsListView(TitleMixin, ListView):
 @login_required(login_url=LOGIN_URL)
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
-    baskets = Basket.objects.filter(user=request.user, product=product)
 
-    if not baskets.exists():
-        Basket.objects.create(user=request.user, product=product, quantity=1)
-    else:
-        basket = Basket.objects.first()
-        basket.quantity += 1
-        basket.save()
+    update_or_add_to_basket(
+        user=request.user,
+        basket_obj=Basket.objects.filter(user=request.user, product=product),
+        product_obj=Product.objects.get(id=product_id),
+        basket_model=Basket,
+    )
+
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
