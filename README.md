@@ -95,7 +95,13 @@ To clone and run this project, you'll need:
    ```bash
    celery -A store worker --loglevel=INFO
    ```
- 
+
+8. Test purchase webhook
+    ```bash
+    stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
+    ```
+
+
  <br>
  
 ## Additional material
