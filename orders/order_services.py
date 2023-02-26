@@ -1,8 +1,6 @@
 import stripe
-from django.http import HttpResponse
 from django.conf import settings
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
+from django.http import HttpResponse
 
 
 def create_checkout_session(line_items, order_id, success_page, cancel_page):
@@ -20,7 +18,7 @@ def handle_stripe_webhook(payload, sig_header, order_model):
         event = stripe.Webhook.construct_event(
             payload,
             sig_header,
-            stripe.api_key,
+            settings.STRIPE_WEBHOOK_SECRET,
         )
     except ValueError as e:
         print(f'Invalid payload, error: {e}')

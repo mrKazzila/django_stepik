@@ -13,9 +13,9 @@ from django.views.generic.list import ListView
 from common.views import TitleMixin
 from orders.forms import OrderForm
 from orders.models import Order
+from orders.order_services import (create_checkout_session,
+                                   handle_stripe_webhook)
 from products.models import Basket
-
-from orders.order_services import create_checkout_session, handle_stripe_webhook
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -80,10 +80,12 @@ class OrderDetailView(DetailView):
 
 @csrf_exempt
 def stripe_webhook_view(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
 
     handle_stripe_webhook(
-        payload=request.body,
-        sig_header=request.META['HTTP_STRIPE_SIGNATURE'],
+        payload=payload,
+        sig_header=sig_header,
         order_model=Order,
     )
 
