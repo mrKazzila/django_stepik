@@ -4,8 +4,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from products.product_services import update_or_add_to_basket
 from products.models import Basket, Product, ProductCategory
+from products.product_services import update_or_add_to_basket
 from store.settings import LOGIN_URL
 
 
