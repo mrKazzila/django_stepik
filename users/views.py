@@ -1,4 +1,3 @@
-# Create your views here.
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import HttpResponseRedirect
@@ -7,6 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 
 from common.views import TitleMixin
+from users.user_services import is_check_verification
 from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
 from users.models import EmailVerification, User
 
@@ -42,13 +42,12 @@ class EmailVerificationView(TitleMixin, TemplateView):
     title = 'Store - Подтверждение электронной почты'
 
     def get(self, request, *args, **kwargs):
-        code = kwargs.get('code')
         user = User.objects.get(email=kwargs['email'])
-        email_verifications = EmailVerification.objects.filter(user=user, code=code)
+        email_verifications = EmailVerification.objects.filter(
+            user=user,
+            code=kwargs.get('code'),
+        )
 
-        if email_verifications.exists() and not email_verifications.first().is_expired():
-            user.is_verified_email = True
-            user.save()
+        if is_check_verification(email_verification=email_verifications, user=user):
             return super().get(request, *args, **kwargs)
-
         return HttpResponseRedirect(reverse('index'))
