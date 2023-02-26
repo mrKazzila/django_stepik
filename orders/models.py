@@ -15,23 +15,13 @@ class OrderStatus(enum.Enum):
 
 # Create your models here.
 class Order(models.Model):
-    # CREATED = 0
-    # PAID = 1
-    # ON_WAY = 2
-    # DELIVERED = 3
-    # STATUSES = (
-    #     (CREATED, 'Создан'),
-    #     (PAID, 'Оплачен'),
-    #     (ON_WAY, 'В пути'),
-    #     (DELIVERED, 'Доставлен'),
-    # )
 
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
     address = models.CharField(max_length=256)
-    status = models.SmallIntegerField(
-        # max_length=20,
+    status = models.CharField(
+        max_length=20,
         choices=[(status.name, status.value) for status in OrderStatus],
         default=OrderStatus.CREATED.name,
     )
