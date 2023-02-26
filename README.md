@@ -29,6 +29,7 @@
   <a href="#features">Features</a> •
   <a href="#tech-stack">Tech stack</a> •
   <a href="#how-to-use">How To Use</a> •
+  <a href="#additional-materials">Аdditional materials</a> •
   <a href="https://store-server-test.ru/">Website</a>
 </p>
 
@@ -94,6 +95,12 @@ To clone and run this project, you'll need:
    ```bash
    celery -A store worker --loglevel=INFO
    ```
+ 
+ <br>
+ 
+ ## Аdditional materials
+ 
+[how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-22-04#further-troubleshooting)
 
 
 <br>
