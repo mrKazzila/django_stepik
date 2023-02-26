@@ -4,7 +4,6 @@ from pathlib import Path
 
 import environ
 
-
 mimetypes.add_type('text/javascript', '.js', True)
 
 env = environ.Env(
@@ -56,7 +55,10 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
-DOMAIN_NAME = env('DOMAIN_NAME')
+if not DEBUG:
+    DOMAIN_NAME = env('DOMAIN_NAME')
+else:
+    DOMAIN_NAME = 'http://127.0.0.1:8000/'
 
 
 # Application definition
