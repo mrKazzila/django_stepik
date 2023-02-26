@@ -2,14 +2,21 @@ import stripe
 from django.conf import settings
 from django.db import models
 
+from products.product_services import create_basket_item_json
 from users.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class ProductCategory(models.Model):
-    name = models.CharField(max_length=128, unique=True)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(
+        max_length=128,
+        unique=True,
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'category'
@@ -20,13 +27,29 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(
+        max_length=256,
+    )
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.PositiveIntegerField(default=0)
-    image = models.ImageField(upload_to='products_images')
-    category = models.ForeignKey(to=ProductCategory, on_delete=models.PROTECT)
-    stripe_product_price_id = models.CharField(max_length=256, null=True, blank=True)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
+    quantity = models.PositiveIntegerField(
+        default=0,
+    )
+    image = models.ImageField(
+        upload_to='products_images',
+    )
+    category = models.ForeignKey(
+        to=ProductCategory,
+        on_delete=models.PROTECT,
+    )
+    stripe_product_price_id = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'product'
@@ -78,10 +101,20 @@ class BasketQuerySet(models.QuerySet):
 
 
 class Basket(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=0)
-    created_timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+    )
+    product = models.ForeignKey(
+        to=Product,
+        on_delete=models.CASCADE,
+    )
+    quantity = models.PositiveIntegerField(
+        default=0,
+    )
+    created_timestamp = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     objects = BasketQuerySet.as_manager()
 
@@ -93,10 +126,9 @@ class Basket(models.Model):
         return self.product.price * self.quantity
 
     def do_json(self):
-        basket_item = {
-            'product_name': self.product.name,
-            'quantity': self.quantity,
-            'price': float(self.product.price),
-            'sum': float(self.sum),
-        }
-        return basket_item
+        return create_basket_item_json(
+            product_name=self.product.name,
+            quantity=self.quantity,
+            price=float(self.product.price),
+            _sum=float(self.sum),
+        )

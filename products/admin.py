@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
 from products.models import Basket, Product, ProductCategory
 
 admin.site.register(ProductCategory)
@@ -14,6 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
         'category', ('price', 'quantity'),
         'stripe_product_price_id', 'image',
     )
+
     readonly_fields = ('description',)
     search_fields = ('name', 'quantity', 'category')
     ordering = ('price', 'quantity', 'category')
