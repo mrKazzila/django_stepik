@@ -8,7 +8,8 @@
       "price": "6090.00",
       "quantity": 5,
       "image": "products_images/Adidas-hoodie.png",
-      "category": 1
+      "category": 1,
+      "stripe_product_price_id": "price_1MRiT7HnQJx16vwHFXERbsqS"
     }
   },
   {
@@ -20,7 +21,8 @@
       "price": "23725.00",
       "quantity": 7,
       "image": "products_images/Blue-jacket-The-North-Face.png",
-      "category": 1
+      "category": 1,
+      "stripe_product_price_id": "price_1MRiT7HnQJx16vwHImFKCwjC"
     }
   },
   {
@@ -32,7 +34,8 @@
       "price": "3390.00",
       "quantity": 6,
       "image": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
-      "category": 1
+      "category": 1,
+      "stripe_product_price_id": "price_1MRiT8HnQJx16vwHq7ZcBBLc"
     }
   },
   {
@@ -44,7 +47,86 @@
       "price": "15993.00",
       "quantity": 1,
       "image": "products_images/Black-Dr-Martens-shoes.png",
-      "category": 2
+      "category": 2,
+      "stripe_product_price_id": "price_1MRiT9HnQJx16vwHwqedHV50"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Черная куртка The North Face",
+      "description": "",
+      "price": "200.00",
+      "quantity": 100,
+      "image": "products_images/6435044614.jpg",
+      "category": 1,
+      "stripe_product_price_id": "price_1MflXCHnQJx16vwHHr3QGjxJ"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Ботинки Puma",
+      "description": "",
+      "price": "4000.00",
+      "quantity": 90,
+      "image": "products_images/puma-tarrenz-sb.jpg",
+      "category": 2,
+      "stripe_product_price_id": "price_1MflYVHnQJx16vwHyVhkfFTy"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+      "name": "Серьги Кафф",
+      "description": "",
+      "price": "9999.00",
+      "quantity": 99,
+      "image": "products_images/28.970.jpg",
+      "category": 4,
+      "stripe_product_price_id": "price_1MflZfHnQJx16vwHylvkx0VH"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+      "name": "Кошелек TH",
+      "description": "",
+      "price": "50000.00",
+      "quantity": 30,
+      "image": "products_images/tommy-hilfiger-aw06843-413-navy.jpg",
+      "category": 3,
+      "stripe_product_price_id": "price_1MflafHnQJx16vwHwOPxc5Xm"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+      "name": "футболка LeetCode",
+      "description": "",
+      "price": "100000.00",
+      "quantity": 100,
+      "image": "products_images/t_shirt_promo.png",
+      "category": 5,
+      "stripe_product_price_id": "price_1MflcZHnQJx16vwH1iA5M2Y2"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+      "name": "Носки",
+      "description": "",
+      "price": "6000.00",
+      "quantity": 60,
+      "image": "products_images/ad2c51e6f758c5aea96777c584bd0796.jpg",
+      "category": 4,
+      "stripe_product_price_id": "price_1MfldVHnQJx16vwH17X5JEat"
     }
   }
 ]
