@@ -19,6 +19,7 @@
 
 <div align="center">
 
+[![Builde Status](https://github.com/Kazzila/django_stepik/actions/workflows/basic_code_style_checks.yml/badge.svg?)](https://github.com/Kazzila/django_stepik/actions/workflows/basic_code_style_checks.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Stepik](https://img.shields.io/badge/stepik-course-green)](https://stepik.org/course/101042/info)
 
