@@ -8,6 +8,7 @@ from users.user_services import send_verification_email
 
 class User(AbstractUser):
     """User model"""
+
     image = models.ImageField(
         upload_to='users_images',
         null=True,
