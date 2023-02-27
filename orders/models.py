@@ -21,7 +21,7 @@ class Order(models.Model):
     email = models.EmailField(max_length=64)
     address = models.CharField(max_length=256)
     status = models.CharField(
-        max_length=20,
+        max_length=22,
         choices=[(status.name, status.value) for status in OrderStatus],
         default=OrderStatus.CREATED.name,
     )
