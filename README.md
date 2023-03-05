@@ -60,6 +60,10 @@ To clone and run this project, you'll need:
 - [Python](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation)
 
+
+<details>
+<summary>Step-by-step commands</summary>
+
 1. Firstly clone repo
    ```bash
    git clone git@github.com:Kazzila/django_stepik.git
@@ -102,8 +106,8 @@ To clone and run this project, you'll need:
     stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
     ```
 
+</details>
 
- <br>
  
 ## Additional material
  
