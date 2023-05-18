@@ -66,7 +66,7 @@ To clone and run this project, you'll need:
 
 1. Firstly clone repo
    ```bash
-   git clone git@github.com:Kazzila/django_stepik.git
+   git clone git@github.com:mrKazzila/django_stepik.git
    ```
 
 2. Settings Poetry
