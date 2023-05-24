@@ -19,7 +19,7 @@
 
 <div align="center">
 
-[![Builde Status](https://github.com/mrKazzila/django_stepik/actions/workflows/basic_code_style_checks.yml/badge.svg?)](https://github.com/mrKazzila/django_stepik/actions/workflows/basic_code_style_checks.yml)
+[![Builde Status](https://github.com/mrKazzila/mini_online_store/actions/workflows/basic_code_style_checks.yml/badge.svg?)](https://github.com/mrKazzila/mini_online_store/actions/workflows/basic_code_style_checks.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Stepik](https://img.shields.io/badge/stepik-course-green)](https://stepik.org/course/101042/info)
 
@@ -66,7 +66,7 @@ To clone and run this project, you'll need:
 
 1. Firstly clone repo
    ```bash
-   git clone git@github.com:mrKazzila/django_stepik.git
+   git clone git@github.com:mrKazzila/mini_online_store.git
    ```
 
 2. Settings Poetry
