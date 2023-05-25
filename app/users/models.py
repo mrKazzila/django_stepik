@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
 
-from users.user_services import send_verification_email
+from .user_services import send_verification_email
 
 
 class User(AbstractUser):
@@ -50,4 +50,4 @@ class EmailVerification(models.Model):
         )
 
     def is_expired(self):
-        return True if now() >= self.expiration else False
+        return now() >= self.expiration

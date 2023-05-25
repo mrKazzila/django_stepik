@@ -1,4 +1,3 @@
-# Create your tests here.
 from datetime import timedelta
 from http import HTTPStatus
 
@@ -6,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
-from users.models import EmailVerification, User
+from .models import EmailVerification, User
 
 
 class UserRegistrationViewTestCase(TestCase):
@@ -52,4 +51,4 @@ class UserRegistrationViewTestCase(TestCase):
         response = self.client.post(self.path, self.data)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertContains(response, 'Пользователь с таким именем уже существует.', html=True)
+        self.assertContains(response, 'A user with this name already exists.', html=True)
