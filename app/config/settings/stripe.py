@@ -1,0 +1,13 @@
+import os
+
+from .common import DEBUG
+
+# stripe
+if DEBUG:
+    STRIPE_PUBLIC_KEY = os.environ['DEBUG_STRIPE_PUBLIC_KEY']
+    STRIPE_SECRET_KEY = os.environ['DEBUG_STRIPE_SECRET_KEY']
+    STRIPE_WEBHOOK_SECRET = os.environ['DEBUG_STRIPE_WEBHOOK_SECRET']
+else:
+    STRIPE_PUBLIC_KEY = os.environ['STRIPE_PUBLIC_KEY']
+    STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+    STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
