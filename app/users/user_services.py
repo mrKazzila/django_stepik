@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 
 def send_verification_email(user, link):
     send_mail(
-        subject='Подтверждение регистрации',
+        subject='Registration confirmation',
         message=_create_email_massage(user_name=user.username, link=f'{settings.DOMAIN_NAME}{link}'),
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[user.email],
@@ -13,9 +13,9 @@ def send_verification_email(user, link):
 
 
 def _create_email_massage(user_name, link):
-    return (f'{user_name}, благодарим вас за регистрацию!\n'
-            f'Для завершения процедуры регистрации,'
-            f'пожалуйста, подтвердите ваш email по ссылке {link} в течении 48 часов.')
+    return (f'{user_name}, thank you for registering!\n'
+            f'To complete the registration process,'
+            f'please confirm your email within 48 hours at the link\n{link}')
 
 
 def is_check_verification(email_verification, user):

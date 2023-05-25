@@ -6,9 +6,9 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 
 from common.views import TitleMixin
-from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
-from users.models import EmailVerification, User
-from users.user_services import is_check_verification
+from .forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from .models import EmailVerification, User
+from .user_services import is_check_verification
 
 
 class UserLoginView(LoginView):
@@ -21,7 +21,7 @@ class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
     title = 'Registration'
-    success_message = 'Вы успешно зарегистрированы!'
+    success_message = 'You are successfully registered!'
 
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
@@ -31,7 +31,7 @@ class UserProfileUpdateView(TitleMixin, UpdateView):
     model = User
     template_name = 'users/profile.html'
     form_class = UserProfileForm
-    title = 'Store - Профиль'
+    title = 'Store - Profile'
 
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
@@ -39,7 +39,7 @@ class UserProfileUpdateView(TitleMixin, UpdateView):
 
 class EmailVerificationView(TitleMixin, TemplateView):
     template_name = 'users/email_verification.html'
-    title = 'Store - Подтверждение электронной почты'
+    title = 'Store - Email confirmation'
 
     def get(self, request, *args, **kwargs):
         user = User.objects.get(email=kwargs['email'])
