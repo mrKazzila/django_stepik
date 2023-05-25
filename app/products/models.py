@@ -2,7 +2,7 @@ import stripe
 from django.conf import settings
 from django.db import models
 
-from products.product_services import create_basket_item_json
+from .product_services import create_basket_item_json
 from users.models import User
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -27,6 +27,10 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
+    class Meta:
+        verbose_name = 'product'
+        verbose_name_plural = 'products'
+
     name = models.CharField(
         max_length=256,
     )
@@ -51,12 +55,8 @@ class Product(models.Model):
         blank=True,
     )
 
-    class Meta:
-        verbose_name = 'product'
-        verbose_name_plural = 'products'
-
     def __str__(self):
-        return f'Продукт: {self.name} | Категория: {self.category.name}'
+        return f'Product: {self.name} | Category: {self.category.name}'
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -119,7 +119,7 @@ class Basket(models.Model):
     objects = BasketQuerySet.as_manager()
 
     def __str__(self):
-        return f'Корзина для {self.user.username} | Продукт: {self.product.name}'
+        return f'Cart for {self.user.username} | product: {self.product.name}'
 
     @property
     def sum(self):  # noqa A003

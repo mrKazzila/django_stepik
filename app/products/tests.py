@@ -1,10 +1,9 @@
-# Create your tests here.
 from http import HTTPStatus
 
 from django.test import TestCase
 from django.urls import reverse
 
-from products.models import Product, ProductCategory
+from .models import Product, ProductCategory
 
 
 class IndexViewTestCate(TestCase):
@@ -26,7 +25,7 @@ class ProductsListViewTestCase(TestCase):
 
     def __common_tests(self, response):
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertEqual(response.context_data['title'], 'Store - Каталог')
+        self.assertEqual(response.context_data['title'], 'Store - Catalog')
         self.assertTemplateUsed(response, 'products/products.html')
 
     def test_list(self):
