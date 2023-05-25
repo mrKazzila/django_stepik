@@ -1,0 +1,42 @@
+[
+  {
+    "fields" : {
+      "name" : "New" ,
+      "description" : "The newest stuff"
+    } ,
+    "model" : "products.productcategory" ,
+    "pk" : 1
+  },
+  {
+    "fields" : {
+      "name" : "Clothing" ,
+      "description" : "The coolest clothes"
+    } ,
+    "model" : "products.productcategory" ,
+    "pk" : 2
+  },
+  {
+    "fields" : {
+      "name" : "Shoes" ,
+      "description" : "The coolest shoes"
+    } ,
+    "model" : "products.productcategory" ,
+    "pk" : 3
+  },
+  {
+    "fields" : {
+      "name" : "Accessories" ,
+      "description" : "The coolest accessories"
+    } ,
+    "model" : "products.productcategory" ,
+    "pk" : 4
+  },
+  {
+    "fields" : {
+      "name" : "Presents" ,
+      "description" : "Just presents"
+    } ,
+    "model" : "products.productcategory" ,
+    "pk" : 5
+  }
+]

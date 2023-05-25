@@ -4,9 +4,9 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from products.models import Basket, Product, ProductCategory
-from products.product_services import update_or_add_to_basket
-from store.settings import LOGIN_URL
+from config.settings import LOGIN_URL
+from .models import Basket, Product, ProductCategory
+from .product_services import update_or_add_to_basket
 
 
 class IndexView(TitleMixin, TemplateView):
@@ -19,7 +19,7 @@ class ProductsListView(TitleMixin, ListView):
     template_name = 'products/products.html'
     paginate_by = 3
 
-    title = 'Store - Каталог'
+    title = 'Store - Catalog'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
