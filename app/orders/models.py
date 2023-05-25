@@ -7,13 +7,12 @@ from users.models import User
 
 
 class OrderStatus(enum.Enum):
-    CREATED = 'Создан'
-    PAID = 'Оплачен'
-    ON_WAY = 'В пути'
-    DELIVERED = 'Доставлен'
+    CREATED = 'Created'
+    PAID = 'Paid'
+    ON_WAY = 'Delivering'
+    DELIVERED = 'Delivered'
 
 
-# Create your models here.
 class Order(models.Model):
 
     first_name = models.CharField(max_length=64)

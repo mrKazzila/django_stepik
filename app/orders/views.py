@@ -11,22 +11,21 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from orders.forms import OrderForm
-from orders.models import Order
-from orders.order_services import (create_checkout_session,
-                                   handle_stripe_webhook)
 from products.models import Basket
+from .forms import OrderForm
+from .models import Order
+from .order_services import create_checkout_session, handle_stripe_webhook
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class SuccessTemplateView(TitleMixin, TemplateView):
-    title = 'Store - спасибо за заказ'
+    title = 'Store - thanks for ordering!'
     template_name = 'orders/success.html'
 
 
 class CanceledTemplateView(TitleMixin, TemplateView):
-    title = 'Store - заказ не принят!'
+    title = 'Store - order not accepted!'
     template_name = 'orders/canceled.html'
 
 
@@ -34,7 +33,7 @@ class OrderCreateView(TitleMixin, CreateView):
     template_name = 'orders/order-create.html'
     form_class = OrderForm
     success_url = reverse_lazy('orders:order_create')
-    title = 'Store - Оформление заказа'
+    title = 'Store - Ordering'
 
     def post(self, request, *args, **kwargs):
         super().post(request, *args, **kwargs)
@@ -59,7 +58,7 @@ class OrderCreateView(TitleMixin, CreateView):
 
 class OrderListView(TitleMixin, ListView):
     template_name = 'orders/orders.html'
-    title = 'Store - заказы'
+    title = 'Store - orders'
     queryset = Order.objects.all()
     ordering = ('-created',)
 
@@ -74,7 +73,7 @@ class OrderDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context['title'] = f'Заказ №{self.object.id}'
+        context['title'] = f'Order No. {self.object.id}'
         return context
 
 
