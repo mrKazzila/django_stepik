@@ -84,33 +84,38 @@ To clone and run this project, you'll need:
    poetry install
    ```
 
-5. Run project dependencies, migrations, fill the database with the fixture data etc
+5. Install pre-commit
+    ```bash
+    pre-commit install
+    ```
+
+6. Run project dependencies, migrations, fill the database with the fixture data etc
    ```bash
    python manage.py migrate
    python manage.py loaddata <path_to_fixture_files>
-   python manage.py runserver 
+   python manage.py runserver
    ```
 
-6. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
+7. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
    ```bash
    redis-server
    ```
-   
-7. Run Celery
+
+8. Run Celery
    ```bash
    celery -A store worker --loglevel=INFO
    ```
 
-8. Test purchase webhook
+9. Test purchase webhook
     ```bash
     stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
     ```
 
 </details>
 
- 
+
 ## Additional material
- 
+
 [how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-22-04#further-troubleshooting)
 
 
