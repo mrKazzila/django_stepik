@@ -69,49 +69,54 @@ To clone and run this project, you'll need:
    git clone git@github.com:mrKazzila/mini_online_store.git
    ```
 
-2. Settings Poetry
+2. Copy an example .env file because the real one is git ignored
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Settings Poetry
    ```bash
    poetry config virtualenvs.in-project true
    ```
 
-3. Activate venv
+4. Activate venv
    ```bash
    poetry shell
    ```
 
-4. Install packages
+5. Install packages
    ```bash
    poetry install
    ```
 
-5. Install pre-commit
+6. Install pre-commit
     ```bash
     pre-commit install
     ```
 
-6. Run project dependencies, migrations, fill the database with the fixture data etc
+7. Run project dependencies, migrations, fill the database with the fixture data etc
    ```bash
    python manage.py migrate
    python manage.py loaddata <path_to_fixture_files>
    python manage.py runserver
    ```
 
-7. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
+8. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
    ```bash
    redis-server
    ```
 
-8. Run Celery
+9. Run Celery
    ```bash
-   celery -A store worker --loglevel=INFO
+   celery -A config worker --loglevel=INFO
    ```
 
-9. Test purchase webhook
-    ```bash
-    stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
-    ```
+10. Test purchase webhook
+     ```bash
+     stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
+     ```
 
-10. Start yapf
+11. Start yapf
     ```bash
     yapf -ir -vv .
     ```
