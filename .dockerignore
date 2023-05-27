@@ -1,0 +1,16 @@
+.git/
+.github/
+.venv/
+.idea/
+.pytest_cache/
+__pycache__/
+readme/
+
+.env.example
+.gitignore
+.flake8
+.style.yapf
+.pre-commit-config.yaml
+docker-compose.yaml
+Dockerfile
+README.md
