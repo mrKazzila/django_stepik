@@ -41,7 +41,9 @@
             <div class="carousel-inner" role="listbox">
                 {% for slide_id in slide_range %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img class="d-block img-fluid" src="/static/vendor/img/slides/slide-{{ slide_id }}.webp" alt="Slide {{ slide_id }}">
+                        <img class="d-block img-fluid"
+                             src="/static/vendor/img/slides/slide-{{ slide_id }}.webp"
+                             alt="Slide {{ slide_id }}">
                     </div>
                 {% endfor %}
             </div>
