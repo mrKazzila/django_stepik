@@ -111,6 +111,11 @@ To clone and run this project, you'll need:
     stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
     ```
 
+10. Start yapf
+    ```bash
+    yapf -ir -vv .
+    ```
+
 </details>
 
 
