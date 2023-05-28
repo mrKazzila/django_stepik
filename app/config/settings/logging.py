@@ -1,7 +1,5 @@
 from os import getenv
 
-from .common import BASE_DIR  # noqa
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -26,5 +24,9 @@ LOGGING = {
             'propagate': True,
             'level': getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': getenv('DJANGO_LOG_LEVEL', 'INFO'),
     },
 }
