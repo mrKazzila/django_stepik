@@ -1,4 +1,9 @@
-from .redis import REDIS_HOST, REDIS_PORT
+from os import environ
 
-CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
-CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# celery
+CELERY_BROKER_URL = f"redis://{environ['REDIS_HOST']}:{environ['REDIS_PORT']}"
+CELERY_RESULT_BACKEND = f"redis://{environ['REDIS_HOST']}:{environ['REDIS_PORT']}"
