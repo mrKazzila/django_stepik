@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery('service')
+app = Celery('celery_service')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.conf.broker_url = settings.CELERY_BROKER_URL
 app.autodiscover_tasks()
