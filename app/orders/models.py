@@ -7,6 +7,8 @@ from users.models import User
 
 
 class OrderStatus(enum.Enum):
+    """Enum order statuses"""
+
     CREATED = 'Created'
     PAID = 'Paid'
     ON_WAY = 'Delivering'
@@ -14,6 +16,7 @@ class OrderStatus(enum.Enum):
 
 
 class Order(models.Model):
+    """Order"""
 
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
@@ -35,6 +38,7 @@ class Order(models.Model):
         return f'Order #{self.id}. {self.first_name} {self.last_name}'
 
     def update_after_payment(self):
+        """Update order status, create basket history and clean basket after payment"""
         baskets = Basket.objects.filter(user=self.initiator)
         self.status = OrderStatus.PAID.name
         self.basket_history = {

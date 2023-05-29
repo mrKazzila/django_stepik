@@ -1,5 +1,7 @@
 from .models import Basket
 
+# TODO: add docstring
+
 
 def baskets(request):
     user = request.user

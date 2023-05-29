@@ -1,4 +1,6 @@
 class TitleMixin:
+    """Common mixin for generate page title"""
+
     title = None
 
     def get_context_data(self, **kwargs):

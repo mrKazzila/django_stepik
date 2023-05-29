@@ -4,25 +4,23 @@ from .models import Order
 
 
 class OrderForm(forms.ModelForm):
+    """Form for Orders"""
+
     class Meta:
         model = Order
         fields = ('first_name', 'last_name', 'email', 'address')
 
     first_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Marty',
-            },
-        ),
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Marty',
+        }),
     )
     last_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'McFly',
-            },
-        ),
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'McFly',
+        }),
     )
 
     email = forms.EmailField(
@@ -34,10 +32,8 @@ class OrderForm(forms.ModelForm):
         ),
     )
     address = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'USA, California, Hill Valley',
-            },
-        ),
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'USA, California, Hill Valley',
+        }),
     )

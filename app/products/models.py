@@ -2,13 +2,19 @@ import stripe
 from django.conf import settings
 from django.db import models
 
-from .product_services import create_basket_item_json
 from users.models import User
+from .product_services import create_basket_item_json
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class ProductCategory(models.Model):
+    """Category for product"""
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
     name = models.CharField(
         max_length=128,
         unique=True,
@@ -18,33 +24,25 @@ class ProductCategory(models.Model):
         blank=True,
     )
 
-    class Meta:
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
-
     def __str__(self):
         return f'{self.name}'
 
 
 class Product(models.Model):
+    """Product"""
+
     class Meta:
         verbose_name = 'product'
         verbose_name_plural = 'products'
 
-    name = models.CharField(
-        max_length=256,
-    )
+    name = models.CharField(max_length=256)
     description = models.TextField()
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
     )
-    quantity = models.PositiveIntegerField(
-        default=0,
-    )
-    image = models.ImageField(
-        upload_to='products_images',
-    )
+    quantity = models.PositiveIntegerField(default=0)
+    image = models.ImageField(upload_to='products_images')
     category = models.ForeignKey(
         to=ProductCategory,
         on_delete=models.PROTECT,
@@ -58,15 +56,13 @@ class Product(models.Model):
     def __str__(self):
         return f'Product: {self.name} | Category: {self.category.name}'
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
 
         if not self.stripe_product_price_id:
             stripe_product_price = self.create_stripe_product_price()
             self.stripe_product_price_id = stripe_product_price['id']
 
-        super().save(force_insert=False, force_update=False, using=None,
-                     update_fields=None)
+        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
 
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(name=self.name)
@@ -81,6 +77,8 @@ class Product(models.Model):
 
 
 class BasketQuerySet(models.QuerySet):
+    """QuerySet for Basket model"""
+
     def total_sum(self):
         return sum(basket.sum for basket in self)
 
@@ -101,6 +99,8 @@ class BasketQuerySet(models.QuerySet):
 
 
 class Basket(models.Model):
+    """Basket"""
+
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -109,12 +109,8 @@ class Basket(models.Model):
         to=Product,
         on_delete=models.CASCADE,
     )
-    quantity = models.PositiveIntegerField(
-        default=0,
-    )
-    created_timestamp = models.DateTimeField(
-        auto_now_add=True,
-    )
+    quantity = models.PositiveIntegerField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = BasketQuerySet.as_manager()
 

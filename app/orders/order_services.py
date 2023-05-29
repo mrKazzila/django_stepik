@@ -6,6 +6,8 @@ from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
+# TODO: add docstring
+
 
 def create_checkout_session(line_items, order_id, success_page, cancel_page):
     return stripe.checkout.Session.create(

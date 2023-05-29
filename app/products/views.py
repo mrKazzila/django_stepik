@@ -6,15 +6,19 @@ from django.views.generic.list import ListView
 from common.views import TitleMixin
 from config.settings import LOGIN_URL
 from .models import Basket, Product, ProductCategory
-from .product_services import update_or_add_to_basket
+from .product_services import delete_user_basket, update_or_add_to_basket
 
 
 class IndexView(TitleMixin, TemplateView):
+    """Main page"""
+
     template_name = 'products/index.html'
     title = 'Store'
 
 
 class ProductsListView(TitleMixin, ListView):
+    """Catalog with products"""
+
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
@@ -35,6 +39,7 @@ class ProductsListView(TitleMixin, ListView):
 
 @login_required(login_url=LOGIN_URL)
 def basket_add(request, product_id):
+    """Add product to user basket"""
     product = Product.objects.get(id=product_id)
 
     update_or_add_to_basket(
@@ -49,6 +54,6 @@ def basket_add(request, product_id):
 
 @login_required(login_url=LOGIN_URL)
 def basket_remove(request, basket_id):
-    basket = Basket.objects.get(id=basket_id)
-    basket.delete()
+    """Remove user basket"""
+    delete_user_basket(basket_model=Basket, basket_id=basket_id)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
