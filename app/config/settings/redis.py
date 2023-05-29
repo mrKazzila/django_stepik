@@ -1,9 +1,8 @@
-import os
+from os import environ
 
 # Redis
-REDIS_HOST = os.environ['REDIS_HOST']
-REDIS_PORT = os.environ['REDIS_PORT']
-
+REDIS_HOST = environ['REDIS_HOST']
+REDIS_PORT = environ['REDIS_PORT']
 
 # Cache
 CACHES = {
