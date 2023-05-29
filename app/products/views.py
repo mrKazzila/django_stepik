@@ -7,6 +7,9 @@ from common.views import TitleMixin
 from config.settings import LOGIN_URL
 from .models import Basket, Product, ProductCategory
 from .product_services import delete_user_basket, update_or_add_to_basket
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class IndexView(TitleMixin, TemplateView):
@@ -41,11 +44,13 @@ class ProductsListView(TitleMixin, ListView):
 def basket_add(request, product_id):
     """Add product to user basket"""
     product = Product.objects.get(id=product_id)
+    basket_object = Basket.objects.filter(user=request.user, product=product)
+    logger.info(f'Add basket_add: {product}')
 
     update_or_add_to_basket(
         user=request.user,
-        basket_obj=Basket.objects.filter(user=request.user, product=product),
-        product_obj=Product.objects.get(id=product_id),
+        basket_obj=basket_object,
+        product_obj=product,
         basket_model=Basket,
     )
 
