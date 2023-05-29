@@ -20,16 +20,22 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class SuccessTemplateView(TitleMixin, TemplateView):
+    """Success order page"""
+
     title = 'Store - thanks for ordering!'
     template_name = 'orders/success.html'
 
 
 class CanceledTemplateView(TitleMixin, TemplateView):
+    """Canceled order page"""
+
     title = 'Store - order not accepted!'
     template_name = 'orders/canceled.html'
 
 
 class OrderCreateView(TitleMixin, CreateView):
+    """Create order"""
+
     template_name = 'orders/order-create.html'
     form_class = OrderForm
     success_url = reverse_lazy('orders:order_create')
@@ -57,6 +63,8 @@ class OrderCreateView(TitleMixin, CreateView):
 
 
 class OrderListView(TitleMixin, ListView):
+    """Orders list"""
+
     template_name = 'orders/orders.html'
     title = 'Store - orders'
     queryset = Order.objects.all()
@@ -68,6 +76,8 @@ class OrderListView(TitleMixin, ListView):
 
 
 class OrderDetailView(DetailView):
+    """Orders list"""
+
     template_name = 'orders/order.html'
     model = Order
 
@@ -79,6 +89,7 @@ class OrderDetailView(DetailView):
 
 @csrf_exempt
 def stripe_webhook_view(request):
+    """Webhook for stripe"""
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
 

@@ -43,11 +43,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" href="{% url 'users:profile' user.id %}">Профиль</a>
+                            <a class="dropdown-item" href="{% url 'users:profile' user.id %}">Profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="{% url 'orders:orders_list' %}">Profile</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'orders:orders_list' %}">Orders</a>
+                        </li>
                         {% if user.is_superuser or user.is_staff %}
-                            <li><a class="dropdown-item" href="#">Admin Panel</a></li>
+                            <li><a class="dropdown-item" href="/admin/">Admin Panel</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

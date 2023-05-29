@@ -12,11 +12,15 @@ from .user_services import is_check_verification
 
 
 class UserLoginView(LoginView):
+    """Login page"""
+
     template_name = 'users/login.html'
     form_class = UserLoginForm
 
 
 class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
+    """Registration page"""
+
     model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
@@ -28,6 +32,8 @@ class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
 
 
 class UserProfileUpdateView(TitleMixin, UpdateView):
+    """User profile"""
+
     model = User
     template_name = 'users/profile.html'
     form_class = UserProfileForm
@@ -38,6 +44,8 @@ class UserProfileUpdateView(TitleMixin, UpdateView):
 
 
 class EmailVerificationView(TitleMixin, TemplateView):
+    """Email verification page"""
+
     template_name = 'users/email_verification.html'
     title = 'Store - Email confirmation'
 
