@@ -94,29 +94,34 @@ To clone and run this project, you'll need:
     pre-commit install
     ```
 
-7. Run project dependencies, migrations, fill the database with the fixture data etc
+7. Move to app dir
+    ```bash
+   cd app
+    ```
+
+8. Run project dependencies, migrations, fill the database with the fixture data etc
    ```bash
    python manage.py migrate
    python manage.py loaddata <path_to_fixture_files>
    python manage.py runserver
    ```
 
-8. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
+9. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
    ```bash
    redis-server
    ```
 
-9. Run Celery
-   ```bash
-   celery -A config worker --loglevel=INFO
-   ```
+10. Run Celery
+    ```bash
+    celery -A config worker --loglevel=INFO
+    ```
 
-10. Test purchase webhook
+11. Test purchase webhook
      ```bash
      stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
      ```
 
-11. Start yapf
+12. Start yapf
     ```bash
     yapf -ir -vv .
     ```
