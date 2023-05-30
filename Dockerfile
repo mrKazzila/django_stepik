@@ -1,8 +1,20 @@
 FROM python:3.11-slim as poetry
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
+ENV \
+    # python:
+    PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_ROOT_USER_ACTION=ignore
+    PIP_ROOT_USER_ACTION=ignore \
+    PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    # pip:
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # poetry:
+    POETRY_VERSION=1.4.2 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry'
 
 WORKDIR /app
 
@@ -14,9 +26,10 @@ RUN apt-get update \
         curl \
     \
     # install poetry
-    && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python \
+    && curl -sSL https://install.python-poetry.org | python - --version $POETRY_VERSION \
     && export PATH="/root/.local/bin:$PATH" \
-    && poetry export --without-hashes --format=requirements.txt > requirements.txt \
+    && poetry --version \
+    && poetry export --format requirements.txt --output requirements.txt --without-hashes \
     && rm -rf var/cache
 
 
