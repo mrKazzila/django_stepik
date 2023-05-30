@@ -133,7 +133,7 @@ To clone and run this project, you'll need:
 
 14. Start bandit (manual)
     ```bash
-    bandit -r app/
+    bandit -c style/bandit.yaml -r app/ -f json -o bandit_report.json
     ```
 
 </details>
