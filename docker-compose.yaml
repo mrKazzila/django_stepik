@@ -33,19 +33,19 @@ services:
 
   celery:
     container_name: celery
+    image: python:3.11-slim
     build:
       context: .
     env_file:
       - env/.env
+    environment:
+      - REDIS_HOST=redis
     entrypoint: celery
     command: -A config.celery.app worker --loglevel=info
     volumes:
       - ./app:/app
     depends_on:
       - redis
-    environment:
-      - REDIS_HOST=redis
-
 
 volumes:
   postgres_data:
