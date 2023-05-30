@@ -26,3 +26,7 @@ COPY --from=poetry ./app ./
 
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt \
+    && adduser storeuser \
+    && chown -R storeuser:storeuser /app
+
+USER storeuser
