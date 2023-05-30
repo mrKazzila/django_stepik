@@ -163,3 +163,4 @@ cython_debug/
 # my ignore
 /app/media/
 /app/static/admin/
+/bandit_report.json
