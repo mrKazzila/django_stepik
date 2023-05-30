@@ -71,7 +71,7 @@ To clone and run this project, you'll need:
 
 2. Copy an example .env file because the real one is git ignored
    ```bash
-   cp .env.example .env
+   cp env/.env.example env/.env
    ```
 
 3. Settings Poetry
