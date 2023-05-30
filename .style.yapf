@@ -1,5 +1,6 @@
 [style]
 based_on_style = pep8
+
 column_limit = 119
 align_closing_bracket_with_visual_indent = False
 dedent_closing_brackets = True
