@@ -5,11 +5,10 @@
 .pytest_cache/
 __pycache__/
 readme/
+style/
+env/.env.example
 
-.env.example
 .gitignore
-.flake8
-.style.yapf
 .pre-commit-config.yaml
 docker-compose.yaml
 Dockerfile
