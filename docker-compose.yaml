@@ -33,7 +33,6 @@ services:
 
   celery:
     container_name: celery
-    image: python:3.11-slim
     build:
       context: .
     env_file:

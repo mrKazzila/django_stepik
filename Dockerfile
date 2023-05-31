@@ -22,7 +22,6 @@ ENV \
     PATH="/root/.local/bin:$PATH"
 
 RUN \
-    # update server
     apt-get update && \
     apt-get install --no-install-recommends -y \
     # deps for installing poetry
@@ -34,27 +33,16 @@ RUN \
 
 
 FROM poetry as venv
-ENV \
-    # poetry:
-    POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_VIRTUALENVS_CREATE=false
 
 COPY ./poetry.lock ./pyproject.toml /app/
 RUN poetry export --format requirements.txt --output requirements.txt --without-hashes
 
 
 FROM venv as build
-COPY --from=venv /app/requirements.txt /tmp/requirements.txt
-
-RUN python -m venv .venv && \
-    .venv/bin/pip install 'wheel==0.36.2' && \
-    .venv/bin/pip install -r /tmp/requirements.txt
-
-
-FROM python:3.11-slim as runtime
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
-WORKDIR /app
-ENV PATH=/app/.venv/bin:$PATH
+COPY --from=venv /app/requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
-COPY --from=build /app/.venv /app/.venv
 COPY . /app
