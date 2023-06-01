@@ -60,9 +60,9 @@ To clone and run this project, you'll need:
 - [Python](https://www.python.org/downloads/)
 - [Poetry](https://python-poetry.org/docs/#installation)
 
-
+Step-by-step commands or use [Docker](readme/DOCKER.md)
 <details>
-<summary>Step-by-step commands</summary>
+<summary>commands</summary>
 
 1. Firstly clone repo
    ```bash
