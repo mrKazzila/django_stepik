@@ -1,15 +1,31 @@
+# Git
 .git/
 .github/
+.gitignore
+
+# Docker
+docker/
+.dockerignore
+Dockerfile
+docker-compose.yaml
+docker-compose.prod.yaml
+
+# Env & venv
 .venv/
-.idea/
-.pytest_cache/
-__pycache__/
-readme/
-style/
 env/.env.example
 
-.gitignore
+# Cache
+*.pytest_cache
+**/__pycache__/
+
+# IDE
+.idea/
+.DS_Store
+
+#Linters & Formatters
+style/
 .pre-commit-config.yaml
-docker-compose.yaml
-Dockerfile
+
+# Project
+readme/
 README.md
