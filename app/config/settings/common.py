@@ -38,9 +38,9 @@ INSTALLED_APPS = [
 
     # my_apps
     'common',
-    'products',
-    'users',
-    'orders',
+    'products.apps.ProductsConfig',
+    'users.apps.UsersConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
                 # my context_processors
                 'products.context_processors.baskets',
             ],
@@ -93,12 +94,12 @@ USE_TZ = True
 
 # Static files
 
-STATIC_URL = '/static/'
-
 if DEBUG:
+    STATIC_URL = '/static/'
     STATICFILES_DIRS = (BASE_DIR / '../static',)
 else:
-    STATIC_ROOT = BASE_DIR / '../static'
+    STATIC_URL = '/staticfiles/'
+    STATIC_ROOT = BASE_DIR / '../staticfiles'
 
 # Media files
 
