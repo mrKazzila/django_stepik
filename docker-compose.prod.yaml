@@ -66,7 +66,7 @@ services:
     depends_on:
       - nginx
     volumes:
-      - app:/var/www/html
+      - app:/var/store/web/
       - etc-letsencrypt:/etc/letsencrypt
 
 
