@@ -60,18 +60,18 @@ services:
     depends_on:
       - django
 
-#  certbot:
-#    container_name: certbot
-#    image: certbot/certbot
-#    depends_on:
-#      - nginx
-#    volumes:
-#      - app:/var/www/html
-#      - etc-letsencrypt:/etc/letsencrypt
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    volumes:
+      - app:/var/www/html
+      - etc-letsencrypt:/etc/letsencrypt
 
 
 volumes:
   app:
   postgres_data:
   static_data:
-#  etc-letsencrypt:
+  etc-letsencrypt:
