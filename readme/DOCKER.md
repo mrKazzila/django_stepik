@@ -87,19 +87,15 @@ To use this command, you'll need:
    ```
 
 7. Generate Let's Encrypt cert
-   ```bash
-   docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput --clear
-   ```
-   ```bash
-   docker-compose run --rm --entrypoint "\
-   certbot certonly --webroot -w /var/www/html \
-   --email <your_email> \
-   -d <your_domain> \
-   --rsa-key-size 2048 \
-   --agree-tos \
-   --force-renewal" certbot
-   ```
-
+    ```bash
+      docker-compose run --rm --entrypoint "\
+      certbot certonly --webroot -w /var/store/web \
+      --email <your_email> \
+      -d <your_domain> \
+      --rsa-key-size 2048 \
+      --agree-tos \
+      --force-renewal" certbot
+      ```
 
 8. Stop containers
    ```bash
