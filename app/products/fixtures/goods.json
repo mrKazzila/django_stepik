@@ -21,7 +21,7 @@
       "price": "23725.00",
       "quantity": 79,
       "image": "products_images/Blue-jacket-The-North-Face.png",
-      "category": 1,
+      "category": 2,
       "stripe_product_price_id": "price_1MRiT7HnQJx16vwHImFKCwjC"
     }
   },
@@ -34,7 +34,7 @@
       "price": "3394.00",
       "quantity": 634,
       "image": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
-      "category": 1,
+      "category": 2,
       "stripe_product_price_id": "price_1MRiT8HnQJx16vwHq7ZcBBLc"
     }
   },
@@ -47,7 +47,7 @@
       "price": "15993.00",
       "quantity": 1,
       "image": "products_images/Black-Dr-Martens-shoes.png",
-      "category": 2,
+      "category": 3,
       "stripe_product_price_id": "price_1MRiT9HnQJx16vwHwqedHV50"
     }
   },
@@ -60,7 +60,7 @@
       "price": "23560.00",
       "quantity": 123,
       "image": "products_images/6435044614.jpg",
-      "category": 1,
+      "category": 2,
       "stripe_product_price_id": "price_1MflXCHnQJx16vwHHr3QGjxJ"
     }
   },
@@ -73,7 +73,7 @@
       "price": "8080.00",
       "quantity": 90,
       "image": "products_images/puma-tarrenz-sb.jpg",
-      "category": 2,
+      "category": 3,
       "stripe_product_price_id": "price_1MflYVHnQJx16vwHyVhkfFTy"
     }
   },
@@ -99,7 +99,7 @@
       "price": "50000.00",
       "quantity": 30,
       "image": "products_images/tommy-hilfiger-aw06843-413-navy.jpg",
-      "category": 3,
+      "category": 4,
       "stripe_product_price_id": "price_1MflafHnQJx16vwHwOPxc5Xm"
     }
   },
