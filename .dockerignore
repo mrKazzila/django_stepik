@@ -22,7 +22,7 @@ env/.env.example
 .idea/
 .DS_Store
 
-#Linters & Formatters
+# Linters & Formatters
 style/
 .pre-commit-config.yaml
 
