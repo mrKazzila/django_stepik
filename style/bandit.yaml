@@ -1,6 +1,6 @@
 exclude_dirs: [
-  '../.venv',
-  '../*/migrations/*',
-  '../*/tests/*',
-  '../*/tests.py',
+  '*/.venv',
+  '*/migrations/*',
+  '*/tests/*',
+  '*/tests.py',
 ]
