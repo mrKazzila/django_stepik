@@ -23,14 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
 
-      - name: Settings poetry
-        run: poetry config virtualenvs.in-project true
-
-      - name: Poetry activate shell
-        run: poetry shell
-
       - name: Poetry install
-        run: poetry install
+        run: poetry install --no-interaction --no-root
 
       - name: Run django tests
         run: python app/manage.py test
