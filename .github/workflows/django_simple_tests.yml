@@ -1,4 +1,4 @@
-name: Basic code style checks
+name: Django simple test
 
 on:
   pull_request:
