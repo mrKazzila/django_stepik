@@ -23,7 +23,7 @@ class ProductsListViewTestCase(TestCase):
     def setUp(self) -> None:
         self.products = Product.objects.all()
 
-    def __common_tests(self, response):
+    def _common_tests(self, response):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context_data['title'], 'Store - Catalog')
         self.assertTemplateUsed(response, 'products/products.html')
@@ -32,7 +32,7 @@ class ProductsListViewTestCase(TestCase):
         path = reverse('products:index')
         response = self.client.get(path)
 
-        self.__common_tests(response=response)
+        self._common_tests(response=response)
         self.assertEqual(
             list(response.context_data['object_list']),
             list(self.products[:3]),
@@ -43,7 +43,8 @@ class ProductsListViewTestCase(TestCase):
         path = reverse('products:category', kwargs={'category_id': category.id})
         response = self.client.get(path)
 
-        self.__common_tests(response=response)
+        self._common_tests(response=response)
+
         self.assertEqual(
             list(response.context_data['object_list']),
             list(self.products.filter(category_id=category.id)),
