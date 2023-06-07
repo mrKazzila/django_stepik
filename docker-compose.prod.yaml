@@ -10,7 +10,7 @@ services:
     expose:
       - 8000
     env_file:
-      - env/.env.prod
+      - env/.env
     volumes:
       - app:/var/store/web/
       - static_data:/var/store/web/static
@@ -23,7 +23,7 @@ services:
     container_name: postgres-15.3
     image: postgres:15.3
     env_file:
-      - env/.env.prod
+      - env/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
@@ -37,7 +37,7 @@ services:
     build:
       context: .
     env_file:
-      - env/.env.prod
+      - env/.env
     environment:
       - REDIS_HOST=redis
     entrypoint: celery
