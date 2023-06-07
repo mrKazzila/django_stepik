@@ -6,10 +6,10 @@ ENV \
     PYTHONFAULTHANDLER=1 \
     PYTHONHASHSEED=random
 
-WORKDIR /var/store/web/
+WORKDIR /app/
 
 RUN groupadd -r docker && \
-    useradd --create-home --gid docker unprivilegeduser && \
+    useradd -m -g docker unprivilegeduser && \
     mkdir -p /home/unprivilegeduser/.local/share/docker && \
     chown -R unprivilegeduser /home/unprivilegeduser
 
@@ -36,16 +36,27 @@ RUN \
 FROM poetry as venv
 ENV POETRY_VIRTUALENVS_CREATE=false
 
-COPY ./poetry.lock ./pyproject.toml /var/store/web/
+COPY ./poetry.lock ./pyproject.toml /app/
 RUN poetry export --format requirements.txt --output requirements.txt --without-hashes
 
 
 FROM venv as build
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_ROOT_USER_ACTION=ignore \
+    HOME=/home/app \
+    APP_HOME=/home/app/web
 
-COPY --from=venv /var/store/web/requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
+
+COPY --from=venv /app/requirements.txt /tmp/requirements.txt
+
+RUN pip install -r /tmp/requirements.txt && \
+    rm -rf tmp \
+    mkdir $HOME \
+    mrdir $APP_HOME
+
+WORKDIR $APP_HOME
+COPY . $APP_HOME
+
+RUN chown -R unprivilegeduser $APP_HOME
 
 USER unprivilegeduser
-
-COPY . /var/store/web/

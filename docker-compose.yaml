@@ -10,7 +10,7 @@ services:
       - env/.env
     command: sh -c "python app/manage.py migrate && python app/manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - .:/home/app/web/
     ports:
       - "8000:8000"
     depends_on:
@@ -22,7 +22,7 @@ services:
     container_name: local-postgres
     image: postgres:15.3
     env_file:
-      - env/.env
+      - env/.env.db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
@@ -43,7 +43,7 @@ services:
     entrypoint: celery
     command: --workdir=./app -A config worker --loglevel=info
     volumes:
-      - ./app:/app
+      - .:/home/app/web/
     depends_on:
       - redis
 
