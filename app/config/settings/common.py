@@ -94,12 +94,9 @@ USE_TZ = True
 
 # Static files
 
-if DEBUG:
-    STATIC_URL = '/static/'
-    STATICFILES_DIRS = (BASE_DIR / '../static',)
-else:
-    STATIC_URL = '/staticfiles/'
-    STATIC_ROOT = BASE_DIR / '../staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (BASE_DIR / '../static',)
+STATIC_ROOT = BASE_DIR / '../staticfiles'
 
 # Media files
 
