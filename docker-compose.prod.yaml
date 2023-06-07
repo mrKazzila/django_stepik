@@ -56,7 +56,7 @@ services:
     volumes:
       - app:/home/app/web
       - static_data:/home/app/web/static
-      - nginx-conf.d:/etc/nginx/conf.d
+      - ./nginx-conf.d:/etc/nginx/conf.d
     depends_on:
       - django
 
