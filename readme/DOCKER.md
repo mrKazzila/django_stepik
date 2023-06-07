@@ -58,37 +58,42 @@ To use this command, you'll need:
 
 1. Create containers
    ```bash
-   docker-compose -f docker-compose.prod.yaml build
+   sudo docker-compose -f docker-compose.prod.yaml build
    ```
 
 2. Containers up
    ```bash
-   docker-compose -f docker-compose.prod.yaml up -d
+   sudo docker-compose -f docker-compose.prod.yaml up -d
    ```
 
 3. Or create & build
    ```bash
-   docker-compose -f docker-compose.prod.yaml up -d --build
+   sudo docker-compose -f docker-compose.prod.yaml up -d --build
    ```
 
 4. Enter into container
    ```bash
-   docker-compose -f docker-compose.prod.yaml exec django bash
+   sudo docker-compose -f docker-compose.prod.yaml exec django bash
    ```
 
 5. run Migrate into container
    ```bash
-   docker-compose -f docker-compose.prod.yaml exec django python app/manage.py migrate --noinput
+   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py migrate --noinput
    ```
 
-6. Collect static into container
+6. Create superuser (?)
    ```bash
-   docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput --clear
+   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py createsuperuser
    ```
 
-7. Generate Let's Encrypt cert
+7. Collect static into container
+   ```bash
+   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput --clear
+   ```
+
+8. Generate Let's Encrypt cert
     ```bash
-      docker-compose run --rm --entrypoint "\
+      sudo docker-compose run --rm --entrypoint "\
       certbot certonly --webroot -w /var/store/web \
       --email <your_email> \
       -d <your_domain> \
@@ -97,9 +102,9 @@ To use this command, you'll need:
       --force-renewal" certbot
       ```
 
-8. Stop containers
+9. Stop containers
    ```bash
-   docker-compose down -v
+   sudo docker-compose down -v
    ```
 
 </details>
