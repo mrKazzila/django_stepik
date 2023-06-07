@@ -57,6 +57,8 @@ services:
       - app:/home/app/web
       - static_data:/home/app/web/static
       - ./nginx-conf.d:/etc/nginx/conf.d
+      - ./etc-letsencrypt:/etc/letsencrypt
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
       - django
 
@@ -66,12 +68,11 @@ services:
     depends_on:
       - nginx
     volumes:
-      - app:/home/app/web
-      - etc-letsencrypt:/etc/letsencrypt
+      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./etc-letsencrypt:/etc/letsencrypt
 
 
 volumes:
   app:
   postgres_data:
   static_data:
-  etc-letsencrypt:
