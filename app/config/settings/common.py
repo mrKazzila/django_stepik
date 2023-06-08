@@ -93,10 +93,12 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR / '../static',)
-STATIC_ROOT = BASE_DIR / '../static'
+
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / '../static'
+elif DEBUG:
+    STATICFILES_DIRS = (BASE_DIR / '../static',)
 
 # Media files
 
