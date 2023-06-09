@@ -13,8 +13,6 @@ services:
       - env/.env
     volumes:
       - app:/home/app/web
-      - static_data:/home/app/web/static
-      - media_volume:/home/app/web/media
     depends_on:
       - postgres
       - redis
@@ -43,8 +41,6 @@ services:
       - REDIS_HOST=redis
     entrypoint: celery
     command: --workdir=./app -A config worker --loglevel=info
-    volumes:
-      - app:/home/app/web
     depends_on:
       - redis
 
@@ -56,8 +52,6 @@ services:
       - "443:333"
     volumes:
       - app:/home/app/web
-      - static_data:/home/app/web/static
-      - media_volume:/home/app/web/media
       - ./nginx-conf.d:/etc/nginx/conf.d
       - ./etc-letsencrypt:/etc/letsencrypt
       - ./certbot/data:/usr/share/nginx/html/letsencrypt
@@ -77,5 +71,3 @@ services:
 volumes:
   app:
   postgres_data:
-  static_data:
-  media_volume:
