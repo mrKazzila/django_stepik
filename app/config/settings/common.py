@@ -4,6 +4,12 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Https setting for prod
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = os.environ['DJANGO_DEBUG']
 ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
@@ -14,7 +20,6 @@ else:
     DOMAIN_NAME = 'http://127.0.0.1:8000/'
 
 # Application definition
-
 INSTALLED_APPS = [
     # Default apps
     'django.contrib.admin',
@@ -85,7 +90,6 @@ INTERNAL_IPS = [
 ]
 
 # Internationalization
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -94,21 +98,17 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / '../static'  # STATIC_ROOT = os.path.join(BASE_DIR, '../static')
-
-# STATICFILES_DIRS = (BASE_DIR / '../static',)  # for local run
+STATIC_ROOT = 'var/www/static'
+STATICFILES_DIRS = (BASE_DIR / '../static',)
 
 # Media files
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / '../media'
+MEDIA_ROOT = 'var/www/media'
 
 # Default primary key field type
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # users
-
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
