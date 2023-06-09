@@ -88,7 +88,7 @@ To use this command, you'll need:
 
 7. Collect static into container
    ```bash
-   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput --clear
+   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput
    ```
 
 8. Generate Let's Encrypt cert
