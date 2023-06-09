@@ -53,8 +53,8 @@ services:
     volumes:
       - app:/home/app/web
       - ./nginx-conf.d:/etc/nginx/conf.d
-      - ./etc-letsencrypt:/etc/letsencrypt
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - django
 
@@ -64,8 +64,8 @@ services:
     depends_on:
       - nginx
     volumes:
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
-      - ./etc-letsencrypt:/etc/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
 
 
 volumes:
