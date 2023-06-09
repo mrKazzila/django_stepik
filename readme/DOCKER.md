@@ -83,7 +83,7 @@ To use this command, you'll need:
 
 6. Create superuser (?)
    ```bash
-   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py createsuperuser
+   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py createsuperuser_if_not_exists --user=admin --password=admin
    ```
 
 7. Collect static into container
