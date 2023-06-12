@@ -43,16 +43,13 @@ RUN poetry export --format requirements.txt --output requirements.txt --without-
 FROM venv as build
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_ROOT_USER_ACTION=ignore \
-    HOME=/home/app \
-    APP_HOME=/home/app/web
+    APP_HOME=/app
 
 
 COPY --from=venv /app/requirements.txt /tmp/requirements.txt
 
 RUN pip install -r /tmp/requirements.txt && \
-    rm -rf tmp \
-    mkdir $HOME \
-    mrdir $APP_HOME
+    rm -rf tmp
 
 WORKDIR $APP_HOME
 COPY . $APP_HOME
