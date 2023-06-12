@@ -5,13 +5,13 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Https setting for prod
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-DEBUG = os.environ['DJANGO_DEBUG']
+DEBUG = os.getenv('DJANGO_DEBUG', False)
 ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
 
 if not DEBUG:
