@@ -8,11 +8,6 @@ ENV \
 
 WORKDIR /app/
 
-RUN groupadd -r docker && \
-    useradd -m -g docker unprivilegeduser && \
-    mkdir -p /home/unprivilegeduser/.local/share/docker && \
-    chown -R unprivilegeduser /home/unprivilegeduser
-
 
 FROM base as poetry
 ENV \
@@ -37,23 +32,31 @@ FROM poetry as venv
 ENV POETRY_VIRTUALENVS_CREATE=false
 
 COPY ./poetry.lock ./pyproject.toml /app/
-RUN poetry export --format requirements.txt --output requirements.txt --without-hashes
+RUN poetry export --format requirements.txt --output /app/requirements.txt --without-hashes
 
 
-FROM venv as build
+FROM python:3.11-slim
+
+RUN groupadd -r docker && \
+    useradd -m -g docker unprivilegeduser && \
+    mkdir -p /home/unprivilegeduser && \
+    chown -R unprivilegeduser /home/unprivilegeduser
+
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_ROOT_USER_ACTION=ignore \
-    APP_HOME=/app
+    HOME=/home/unprivilegeduser \
+    APP_HOME=/home/unprivilegeduser/store
 
-
-COPY --from=venv /app/requirements.txt /tmp/requirements.txt
-
-RUN pip install -r /tmp/requirements.txt && \
-    rm -rf tmp
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/static
+RUN mkdir $APP_HOME/media
 
 WORKDIR $APP_HOME
+
+COPY --from=venv /app/requirements.txt /$APP_HOME/requirements.txt
+RUN pip install -r /$APP_HOME/requirements.txt
+
 COPY . $APP_HOME
 
-RUN chown -R unprivilegeduser $APP_HOME
-
+RUN chown -R unprivilegeduser:docker $APP_HOME
 USER unprivilegeduser

@@ -4,6 +4,7 @@ services:
   django:
     restart: always
     container_name: django3-python3.11
+    #user: unprivilegeduser
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,8 +14,8 @@ services:
     env_file:
       - env/.env
     volumes:
-      - ./persistentdata/static:/var/www/static
-      - ./persistentdata/media:/var/www/media
+      - ./persistentdata/static:/home/unprivilegeduser/store/static
+      - ./persistentdata/media:/home/unprivilegeduser/store/media
     depends_on:
       - postgres
       - redis
@@ -58,19 +59,19 @@ services:
     ports:
       - "80:80"
       - "443:443"
-#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+   # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
-      - ./persistentdata/static:/var/www/static
-      - ./persistentdata/media:/var/www/media
+      - ./persistentdata/static:/home/unprivilegeduser/store/static
+      - ./persistentdata/media:/home/unprivilegeduser/store/media
     depends_on:
       - django
 
   certbot:
     container_name: certbot
     image: certbot/certbot
- #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+   # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
