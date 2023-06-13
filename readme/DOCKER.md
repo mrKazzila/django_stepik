@@ -56,6 +56,10 @@ To use this command, you'll need:
 <details>
 <summary>Step-by-step commands</summary>
 
+0. DEL
+   ```bash
+   sudo docker-compose -f docker-compose.prod.yaml down -v && docker volume prune && docker system prune
+   ```
 1. Create containers
    ```bash
    sudo docker-compose -f docker-compose.prod.yaml build
@@ -69,7 +73,6 @@ To use this command, you'll need:
 3. Or create & build
    ```bash
    sudo docker-compose -f docker-compose.prod.yaml up -d --build
-   ```
 
 4. Enter into container
    ```bash
@@ -77,7 +80,8 @@ To use this command, you'll need:
    ```
 
 5. run Migrate into container
-   ```bash
+   ```bash-build
+   ```
    sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py migrate --noinput
    ```
 
