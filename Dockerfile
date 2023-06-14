@@ -4,17 +4,13 @@ ENV \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONFAULTHANDLER=1 \
-    PYTHONHASHSEED=random
-
-WORKDIR /app/
-
-
-FROM base as poetry
-ENV \
+    PYTHONHASHSEED=random \
     # poetry
     POETRY_VERSION=1.4.2 \
     POETRY_CACHE_DIR='/var/cache/pypoetry' \
     PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app/
 
 RUN \
     apt-get update && \
@@ -24,12 +20,11 @@ RUN \
     # install poetry
     curl -sSL https://install.python-poetry.org | python - --version $POETRY_VERSION && \
     # cleaning cache
-    rm -rf var/cache && \
+    rm -rf /var/cache && \
     rm -rf /var/lib/apt/lists/*
 
 
-FROM poetry as venv
-ENV POETRY_VIRTUALENVS_CREATE=false
+FROM base as venv
 
 COPY ./poetry.lock ./pyproject.toml /app/
 RUN poetry export --format requirements.txt --output /app/requirements.txt --without-hashes
@@ -47,14 +42,16 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     HOME=/home/unprivilegeduser \
     APP_HOME=/home/unprivilegeduser/store
 
-RUN mkdir $APP_HOME
-RUN mkdir $APP_HOME/static
-RUN mkdir $APP_HOME/media
+RUN mkdir $APP_HOME && \
+    mkdir $APP_HOME/static && \
+    mkdir $APP_HOME/media
 
 WORKDIR $APP_HOME
 
 COPY --from=venv /app/requirements.txt /$APP_HOME/requirements.txt
-RUN pip install -r /$APP_HOME/requirements.txt
+
+RUN pip install -r $APP_HOME/requirements.txt && \
+    rm $APP_HOME/requirements.txt
 
 COPY . $APP_HOME
 

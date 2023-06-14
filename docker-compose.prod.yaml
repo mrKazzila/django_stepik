@@ -4,7 +4,6 @@ services:
   django:
     restart: always
     container_name: django3-python3.11
-    #user: unprivilegeduser
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +11,7 @@ services:
     expose:
       - 8000
     env_file:
-      - env/.env
+      - env/.env.project
     volumes:
       - ./persistentdata/static:/home/unprivilegeduser/store/static
       - ./persistentdata/media:/home/unprivilegeduser/store/media
@@ -42,7 +41,7 @@ services:
     build:
       context: .
     env_file:
-      - env/.env
+      - env/.env.project
     environment:
       - REDIS_HOST=redis
     entrypoint: celery
@@ -59,7 +58,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-   # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
@@ -71,7 +70,7 @@ services:
   certbot:
     container_name: certbot
     image: certbot/certbot
-   # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
