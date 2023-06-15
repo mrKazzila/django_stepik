@@ -39,12 +39,11 @@ RUN groupadd -r docker && \
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_ROOT_USER_ACTION=ignore \
-    HOME=/home/unprivilegeduser \
     APP_HOME=/home/unprivilegeduser/store
 
 RUN mkdir $APP_HOME && \
-    mkdir $APP_HOME/static && \
-    mkdir $APP_HOME/media
+    mkdir -p $APP_HOME/static && \
+    mkdir -p $APP_HOME/media
 
 WORKDIR $APP_HOME
 
