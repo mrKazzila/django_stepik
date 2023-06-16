@@ -74,7 +74,7 @@ Step-by-step commands or use [Docker](readme/DOCKER.md)
 
 2. Copy an example .env file because the real one is git ignored
    ```bash
-   cp env/.env.example env/.env
+   cp env/.env.example env/.env.project
    ```
 
 3. Settings Poetry
