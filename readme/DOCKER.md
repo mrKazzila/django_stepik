@@ -26,9 +26,6 @@ To use this command, you'll need:
 
 
 ### Local env
-<details>
-<summary>Step-by-step commands</summary>
-
 1. Create containers
    ```bash
    docker-compose -f docker-compose.yaml build
@@ -46,72 +43,12 @@ To use this command, you'll need:
 
 4. Stop containers
    ```bash
-   docker-compose down -v
+   docker-compose -f docker-compose.yaml down -v
    ```
-
-</details>
 
 
 ### Prod env
-<details>
-<summary>Step-by-step commands</summary>
-
-0. DEL
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml down -v && docker volume prune && docker system prune
-   ```
-1. Create containers
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml build
-   ```
-
-2. Containers up
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml up -d
-   ```
-
-3. Or create & build
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml up -d --build
-
-4. Enter into container
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml exec django bash
-   ```
-
-5. run Migrate into container
-   ```bash-build
-   ```
-   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py migrate --noinput
-   ```
-
-6. Create superuser (?)
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py createsuperuser_if_not_exists --user=admin --password=admin
-   ```
-
-7. Collect static into container
-   ```bash
-   sudo docker-compose -f docker-compose.prod.yaml exec django python app/manage.py collectstatic --noinput
-   ```
-
-8. Generate Let's Encrypt cert
-    ```bash
-      sudo docker-compose run --rm --entrypoint "\
-      certbot certonly --webroot -w /var/store/web \
-      --email <your_email> \
-      -d <your_domain> \
-      --rsa-key-size 2048 \
-      --agree-tos \
-      --force-renewal" certbot
-      ```
-
-9. Stop containers
-   ```bash
-   sudo docker-compose down -v
-   ```
-
-</details>
+[DEPLOY](DEPLOY.md)
 
 
 <br>
