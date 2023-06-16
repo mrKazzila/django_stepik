@@ -9,9 +9,9 @@
 <hr>
 
 <p align="center">
-  <a href="#What-we-will-have">What we will have</a> •
-  <a href="#Prepare-your-server">Prepare your server</a> •
-  <a href="#Deploy-to-server-with-docker">Deploy to server with docker</a> •
+  <a href="#what-we-will-have">What we will have</a> •
+  <a href="#prepare-your-server">Prepare your server</a> •
+  <a href="#deploy-to-server-with-docker">Deploy to server with docker</a> •
   <a href="#additional-material">Additional material</a>
 </p>
 
@@ -69,8 +69,14 @@ NOTE: Some commands may need to be used with ```sudo```
 8. Remove the # from the lines:
    <details>
    <summary>lines</summary>
-   [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L61)
-   [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L73)
+
+   - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L61)
+   - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L73)
+   - [docker/nginx/Dockerfile](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/Dockerfile#L13-L14)
+   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L11)
+   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L23-L24)
+   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L27-L28)
+   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L35-L40)
    </details>
 
 9. Build project with new settings
