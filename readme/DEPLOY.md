@@ -68,7 +68,9 @@ NOTE: Some commands may need to be used with ```sudo```
 
 8. Remove the # from the lines:
    <details>
-   <summary>Step-by-step commands</summary>
+   <summary>lines</summary>
+   [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L61)
+   [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L73)
    </details>
 
 9. Build project with new settings
