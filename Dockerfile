@@ -42,8 +42,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     APP_HOME=/home/unprivilegeduser/store
 
 RUN mkdir $APP_HOME && \
-    mkdir -p $APP_HOME/static && \
-    mkdir -p $APP_HOME/media
+    mkdir $APP_HOME/static && \
+    mkdir $APP_HOME/media
 
 WORKDIR $APP_HOME
 
