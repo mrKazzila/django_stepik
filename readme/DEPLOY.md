@@ -81,43 +81,48 @@ NOTE: Some commands may need to be used with ```sudo```
   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L27-L28)
   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L35-L40)
 
-0Build project with new settings
+10. Remove static & media folder from `/persistentdata/`
+   ```bash
+   sudo rm -d -R persistentdata/static/ persistentdata/media/
+   ```
+
+11. Build project with new settings
    ```bash
    docker-compose -f docker-compose.prod.yaml up -d --build
    ```
 
-11. Step into django container
-    ```bash
-    docker-compose -f docker-compose.prod.yaml exec django bash
-    ```
+12. Step into django container
+   ```bash
+   docker-compose -f docker-compose.prod.yaml exec django bash
+   ```
 
-12. Make migrations
+13. Make migrations
    ```bash
    python app/manage.py migrate --noinput
    ```
 
-13. Collect static files
+14. Collect static files
    ```bash
    python app/manage.py collectstatic --noinput
    ```
 
-14. Create superuser
+15. Create superuser
    ```bash
    python app/manage.py createsuperuser
    ```
 
-15. Use product fixtures for add some goods into site
+16. Use product fixtures for add some goods into site
   - Firstly add categories
    ```python app/manage.py loaddata app/products/fixtures/categories.json```
   - Secondly add goods
    ```python app/manage.py loaddata app/products/fixtures/goods.json```
 
-16. Add test purchase webhook (update domain (`your_domain`))
+17. Add test purchase webhook (update domain (`your_domain`))
    ```bash
    stripe listen --forward-to your_domain/webhook/stripe/
    ```
 
-17. Add images for goods from fixtures OR add new goods ;)
+18. Add images for goods from fixtures OR add new goods ;)
 
 
 ## Additional material
