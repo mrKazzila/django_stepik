@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 
 # Path settings
 BASE_DIR = Path(__file__).resolve().parent.parent
-ROOT_DIR = BASE_DIR.parent.parent
-APPS_DIR = BASE_DIR.parent
+ROOT_DIR = BASE_DIR.resolve().parent.parent
+APPS_DIR = BASE_DIR.resolve().parent
 
 # Load env from file
 dotenv_path = ROOT_DIR / 'env/.env.project'
@@ -97,12 +97,12 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = ROOT_DIR / 'static/'
-STATICFILES_DIRS = (APPS_DIR / 'static/',)
+STATIC_ROOT = ROOT_DIR / 'static'
+STATICFILES_DIRS = (APPS_DIR / 'static',)
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = ROOT_DIR / 'media/'
+MEDIA_ROOT = ROOT_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
