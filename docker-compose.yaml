@@ -47,5 +47,12 @@ services:
     depends_on:
       - redis
 
+  stripe:
+    container_name: local-stripe
+    image: stripe/stripe-cli:v1.14.7
+    command: listen --forward-to 127.0.0.1:8000/webhook/stripe/
+    depends_on:
+      - django
+
 volumes:
   postgres_data:
