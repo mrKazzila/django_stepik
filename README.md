@@ -24,7 +24,6 @@
 [![Stepik](https://img.shields.io/badge/stepik-course-green)](https://stepik.org/course/101042/info)
  <br>
 [![Builde Status](https://github.com/mrKazzila/mini_online_store/actions/workflows/basic_code_style_checks.yml/badge.svg?)](https://github.com/mrKazzila/mini_online_store/actions/workflows/basic_code_style_checks.yml)
-[![Django simple tests](https://github.com/mrKazzila/mini_online_store/actions/workflows/django_simple_tests.yml/badge.svg)](https://github.com/mrKazzila/mini_online_store/actions/workflows/django_simple_tests.yml)
 
 </div>
 <hr>
@@ -77,64 +76,70 @@ Step-by-step commands or use [Docker](readme/DOCKER.md)
    cp env/.env.example env/.env.project
    ```
 
-3. Settings Poetry
+3. Add env file for db
+   ```bash
+   touch env/.env.db && echo -e \
+   "POSTGRES_DB=store_db\nPOSTGRES_USER=store_username\nPOSTGRES_PASSWORD=store_password" > env/.env.db
+   ```
+
+4. Settings Poetry
    ```bash
    poetry config virtualenvs.in-project true
    ```
 
-4. Activate venv
+5. Activate venv
    ```bash
    poetry shell
    ```
 
-5. Install packages
+6. Install packages
    ```bash
    poetry install
    ```
 
-6. Install pre-commit
+7. Install pre-commit
     ```bash
     pre-commit install
     ```
 
-7. Move to app dir
+8. Move to app dir
     ```bash
    cd app
     ```
 
-8. Run project dependencies, migrations, fill the database with the fixture data etc
+9. Run project dependencies, migrations, fill the database with the fixture data etc
    ```bash
    python manage.py migrate
    python manage.py loaddata <path_to_fixture_files>
    python manage.py runserver
    ```
 
-9. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
-   ```bash
-   redis-server
-   ```
+10. Run [Redis Server](https://redis.io/docs/getting-started/installation/)
+    ```bash
+    redis-server
+    ```
 
-10. Run Celery
+11. Run Celery
     ```bash
     celery -A config worker --loglevel=INFO
     ```
 
-11. Test purchase webhook
+12. Test purchase webhook
      ```bash
      stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/
      ```
 
-12. Start yapf (manual)
+13. Start yapf (manual)
     ```bash
     yapf --style=.style.yapf -ir -vv app/
     ```
 
-13. Start pre-commit (manual)
+14. Start pre-commit (manual)
     ```bash
     pre-commit run --all-files
     ```
 
-14. Start bandit (manual)
+15. Start bandit (manual)
     ```bash
     bandit -c style/bandit.yaml -r app/ -f json -o bandit_report.json
     ```

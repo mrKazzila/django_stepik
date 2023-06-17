@@ -50,72 +50,74 @@ NOTE: Some commands may need to be used with ```sudo```
    cp env/.env.example env/.env.project
    ```
 
-5. Build project
+5. Add env file for db (update db name, user & password)
+   ```bash
+   touch env/.env.db && echo -e \
+   "POSTGRES_DB=store_db\nPOSTGRES_USER=store_username\nPOSTGRES_PASSWORD=store_password" > env/.env.db
+   ```
+
+6. Build project
    ```bash
    docker-compose -f docker-compose.prod.yaml up -d --build
    ```
 
-6. Run certbot for creating ssl sert (update `your_email` & `your_domain`)
+7. Run certbot for creating ssl sert (update `your_email` & `your_domain`)
    ```bash
    docker-compose -f docker-compose.prod.yaml run --no-deps certbot \
    certonly --webroot --webroot-path=/var/www/certbot --agree-tos --no-eff-email --email your_email -d your_domain
    ```
 
-7. Stop containers
+8. Stop containers
    ```bash
    docker-compose -f docker-compose.prod.yaml down -v
    ```
 
-8. Remove the # from the lines:
-   <details>
-   <summary>lines</summary>
+9. Remove the # from the lines:
+  - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L61)
+  - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L73)
+  - [docker/nginx/Dockerfile](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/Dockerfile#L13-L14)
+  - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L11)
+  - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L23-L24)
+  - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L27-L28)
+  - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L35-L40)
 
-   - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L61)
-   - [docker-compose.prod.yaml](https://github.com/mrKazzila/mini_online_store/blob/33bce957a6a0383c59555ddba662f6317533f8f0/docker-compose.prod.yaml#L73)
-   - [docker/nginx/Dockerfile](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/Dockerfile#L13-L14)
-   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L11)
-   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L23-L24)
-   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L27-L28)
-   - [docker/nginx/conf.d/nginx.conf](https://github.com/mrKazzila/mini_online_store/blob/83d6a46f6b86412ab1dc87be509476e9dfb00b5e/docker/nginx/conf.d/nginx.conf#L35-L40)
-   </details>
-
-9. Build project with new settings
+0Build project with new settings
    ```bash
    docker-compose -f docker-compose.prod.yaml up -d --build
    ```
 
-10. Step into django container
+11. Step into django container
     ```bash
     docker-compose -f docker-compose.prod.yaml exec django bash
     ```
 
-11. Make migrations
+12. Make migrations
    ```bash
    python app/manage.py migrate --noinput
    ```
 
-12. Collect static files
+13. Collect static files
    ```bash
    python app/manage.py collectstatic --noinput
    ```
 
-13. Create superuser
+14. Create superuser
    ```bash
    python app/manage.py createsuperuser
    ```
 
-14. Use product fixtures for add some goods into site
+15. Use product fixtures for add some goods into site
   - Firstly add categories
    ```python app/manage.py loaddata app/products/fixtures/categories.json```
   - Secondly add goods
    ```python app/manage.py loaddata app/products/fixtures/goods.json```
 
-15. Add test purchase webhook (update domain (`your_domain`))
+16. Add test purchase webhook (update domain (`your_domain`))
    ```bash
    stripe listen --forward-to your_domain/webhook/stripe/
    ```
 
-16. Add images for goods from fixtures OR add new goods ;)
+17. Add images for goods from fixtures OR add new goods ;)
 
 
 ## Additional material
