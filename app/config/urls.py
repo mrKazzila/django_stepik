@@ -13,7 +13,7 @@ static_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('enter2admin/', admin.site.urls, name='admin'),
+    path('enter2admin/', admin.site.urls, name='enter2admin'),
     path('', IndexView.as_view(), name='index'),
     path('products/', include('products.urls', namespace='products')),
     path('users/', include('users.urls', namespace='users')),
