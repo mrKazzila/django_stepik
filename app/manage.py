@@ -1,22 +1,9 @@
 import os
 import sys
 
-from dotenv import load_dotenv
-
-
-def _load_env_params():
-    """Load environment parameters from env file"""
-    dotenv_path = os.path.join(os.path.dirname(__file__), '../env/.env.project')
-    if os.path.exists(dotenv_path):
-        load_dotenv(dotenv_path)
-    else:
-        raise FileNotFoundError(f'error: file {dotenv_path=} not found!')
-
 
 def main():
     """Run administrative tasks."""
-
-    _load_env_params()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
     try:
