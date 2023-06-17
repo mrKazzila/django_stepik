@@ -93,3 +93,4 @@ cython_debug/
 /app/staticfiles/
 /bandit_report.json
 *.rdb
+persistentdata/
