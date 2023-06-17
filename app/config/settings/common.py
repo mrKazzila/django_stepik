@@ -1,17 +1,22 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from dotenv import load_dotenv
+
+# Path settings
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = BASE_DIR.parent.parent
+APPS_DIR = BASE_DIR.parent
 
+# Load env from file
+dotenv_path = ROOT_DIR / 'env/.env.project'
+load_dotenv(dotenv_path=dotenv_path)
+
+# Base settings
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = os.getenv('DJANGO_DEBUG', False)
 ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
-
-if not DEBUG:
-    DOMAIN_NAME = os.environ['DOMAIN_NAME']
-else:
-    DOMAIN_NAME = 'http://127.0.0.1:8000/'
+DOMAIN_NAME = os.environ['DOMAIN_NAME'] if not DEBUG else 'http://127.0.0.1:8000/'
 
 # Application definition
 INSTALLED_APPS = [
@@ -35,7 +40,7 @@ INSTALLED_APPS = [
     # Debug apps
     'debug_toolbar',
 
-    # my_apps
+    # My apps
     'common',
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
@@ -69,7 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                # my context_processors
+                # My context processors
                 'products.context_processors.baskets',
             ],
         },
@@ -92,17 +97,17 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / '../../static'
-STATICFILES_DIRS = (BASE_DIR / '../static',)
+STATIC_ROOT = ROOT_DIR / 'static/'
+STATICFILES_DIRS = (APPS_DIR / 'static/',)
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / '../../media'
+MEDIA_ROOT = ROOT_DIR / 'media/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# users
+# Users
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
