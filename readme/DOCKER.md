@@ -46,6 +46,13 @@ To use this command, you'll need:
    docker-compose -f docker-compose.yaml down -v
    ```
 
+5. Delete all
+   ```bash
+   docker-compose -f docker-compose.yaml down -v && \
+   docker rmi --force $(docker images -aq) && \
+   docker volume prune && docker system prune
+   ```
+
 
 ### Prod env
 [DEPLOY](DEPLOY.md)
