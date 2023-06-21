@@ -104,7 +104,7 @@
                     {% endfor %}
                     <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
                         <a class="page-link"
-                           href="{% if page_obj.has_hext %} {% url 'products:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">
+                           href="{% if page_obj.has_next %} {% url 'products:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">
                             Next
                         </a>
                     </li>
