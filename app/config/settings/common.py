@@ -1,4 +1,4 @@
-import os
+from os import environ
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -9,14 +9,14 @@ ROOT_DIR = BASE_DIR.resolve().parent.parent
 APPS_DIR = BASE_DIR.resolve().parent
 
 # Load env from file
-dotenv_path = ROOT_DIR / 'env/.env.project'
+dotenv_path = Path(ROOT_DIR / 'env/.env.project').resolve()
 load_dotenv(dotenv_path=dotenv_path)
 
 # Base settings
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-DEBUG = os.getenv('DJANGO_DEBUG', False)
-ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(',')
-DOMAIN_NAME = os.environ['DOMAIN_NAME'] if not DEBUG else 'http://127.0.0.1:8000/'
+DEBUG = False
+SECRET_KEY = environ['DJANGO_SECRET_KEY']
+ALLOWED_HOSTS = environ['DJANGO_ALLOWED_HOSTS'].split(',')
+DOMAIN_NAME = environ['DOMAIN_NAME'] if not DEBUG else 'http://127.0.0.1:8000/'
 
 # Application definition
 INSTALLED_APPS = [
