@@ -15,6 +15,7 @@ class User(AbstractUser):
         blank=True,
     )
     is_verified_email = models.BooleanField(default=False)
+    email = models.EmailField(unique=True)
 
 
 class EmailVerification(models.Model):
