@@ -1,12 +1,12 @@
-import os
+from os import environ
 
 from .common import DEBUG
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # terminal email
 else:
-    EMAIL_HOST = os.environ['EMAIL_HOST']
-    EMAIL_PORT = os.environ['EMAIL_PORT']
-    EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-    EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-    EMAIL_USE_SSL = os.environ['EMAIL_USE_SSL']
+    EMAIL_HOST = environ['EMAIL_HOST']
+    EMAIL_PORT = environ['EMAIL_PORT']
+    EMAIL_HOST_USER = environ['EMAIL_HOST_USER']
+    EMAIL_HOST_PASSWORD = environ['EMAIL_HOST_PASSWORD']
+    EMAIL_USE_SSL = environ['EMAIL_USE_SSL']
