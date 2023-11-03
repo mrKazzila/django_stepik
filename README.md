@@ -15,6 +15,8 @@
     <a href="https://stepik.org/course/125859/info" target="_blank">
       Stepik | Backend development on Django: from scratch to a specialist
     </a>
+   <br>
+    ❗Note: Project not supported❗
 </h4>
 
 <div align="center">
