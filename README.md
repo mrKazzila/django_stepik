@@ -35,7 +35,7 @@
   <a href="#tech-stack">Tech stack</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#additional-material">Additional material</a> •
-  <a href="https://store-server-test.ru/">Website</a>
+  <a href="https://mrkazzila.github.io/mini_online_store/">GitHub Pages</a>
 </p>
 
 
